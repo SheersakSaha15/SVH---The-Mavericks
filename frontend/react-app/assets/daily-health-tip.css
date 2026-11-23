@@ -1,0 +1,189 @@
+/* =========================================================
+   daily-health-tip.css
+   Fully isolated stylesheet for daily-health-tips.html.
+   Every new selector is prefixed `dht-`. Structural look
+   (card background, border, radius, shadow, spacing rhythm,
+   hover lift) comes from the existing .panel/.card/.reveal
+   classes already applied alongside these in the HTML — this
+   file only adds what's specific to this page, and reuses the
+   existing CSS custom properties from style.css throughout.
+   ========================================================= */
+
+/* ---------- Accent color system (scoped to this page only) ----------
+   Each dht-c-* class just sets two custom properties; the
+   structural rules below consume them. Reuses existing tokens
+   where they exist (info/success/warning), adds a small number
+   of one-off accents for variety, consistent with the palette
+   already used elsewhere in the project (e.g. purple/indigo). */
+.dht-c-blue   { --dht-accent: var(--info);            --dht-accent-bg: var(--info-bg); }
+.dht-c-green  { --dht-accent: var(--brand-teal);      --dht-accent-bg: var(--success-bg); }
+.dht-c-amber  { --dht-accent: var(--warning);         --dht-accent-bg: var(--warning-bg); }
+.dht-c-teal   { --dht-accent: var(--brand-teal-dark); --dht-accent-bg: var(--success-bg); }
+.dht-c-purple { --dht-accent: #8b5cf6;                --dht-accent-bg: rgba(139, 92, 246, 0.12); }
+.dht-c-indigo { --dht-accent: #6366f1;                --dht-accent-bg: rgba(99, 102, 241, 0.12); }
+.dht-c-orange { --dht-accent: #f97316;                --dht-accent-bg: rgba(249, 115, 22, 0.12); }
+
+/* ---------- Page header ---------- */
+.dht-page-header p { color: var(--text-secondary); }
+
+/* ---------- Hero: Today's Health Tip ---------- */
+.dht-hero {
+  margin-bottom: 18px;
+  transition: opacity var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+}
+.dht-hero.dht-fade { opacity: 0; transform: translateY(6px); }
+
+.dht-hero-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.dht-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--brand-teal-dark);
+  background: var(--success-bg);
+  padding: 6px 13px;
+  border-radius: var(--r-full);
+}
+[data-theme="dark"] .dht-badge { color: #5eead4; }
+.dht-badge i { font-size: 11px; }
+
+.dht-hero-body { display: flex; align-items: flex-start; gap: 22px; }
+
+.dht-icon {
+  width: 76px;
+  height: 76px;
+  border-radius: var(--r-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  flex-shrink: 0;
+  background: var(--dht-accent-bg, var(--info-bg));
+  color: var(--dht-accent, var(--info));
+  transition: background var(--dur-med) var(--ease), color var(--dur-med) var(--ease);
+}
+
+.dht-hero-content { flex: 1; min-width: 0; }
+.dht-category {
+  display: inline-block;
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--dht-accent, var(--brand-teal));
+  margin-bottom: 8px;
+}
+.dht-hero-content h3 { font-size: 21px; font-weight: 700; line-height: 1.3; margin-bottom: 10px; color: var(--text-primary); }
+.dht-hero-content p { font-size: 13.5px; color: var(--text-secondary); line-height: 1.65; }
+
+.dht-hero-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+}
+.dht-counter { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+
+.dht-nav-btns { display: flex; align-items: center; gap: 10px; }
+.dht-prev-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+}
+.dht-prev-btn:hover { background: var(--border); color: var(--text-primary); }
+.dht-next-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 20px;
+  border-radius: var(--r-full);
+  background: var(--brand-teal);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+}
+.dht-next-btn:hover { background: var(--brand-teal-dark); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+.dht-prev-btn:active, .dht-next-btn:active { transform: translateY(0) scale(0.97); }
+.dht-prev-btn:focus-visible, .dht-next-btn:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
+/* ---------- Explore Health Tips (library) ---------- */
+.dht-library-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 4px;
+}
+.dht-tip-card {
+  text-align: left;
+  padding: 16px;
+  border-radius: var(--r-md);
+  border: 1.5px solid var(--border);
+  background: var(--surface-alt);
+  transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+}
+.dht-tip-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.dht-tip-card:focus-visible { outline: none; box-shadow: var(--shadow-focus); }
+.dht-tip-card.is-active { border-color: var(--brand-teal); background: var(--success-bg); }
+
+.dht-tip-card-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  margin-bottom: 10px;
+  background: var(--dht-accent-bg, var(--info-bg));
+  color: var(--dht-accent, var(--info));
+}
+.dht-tip-card-category {
+  display: block;
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--dht-accent, var(--brand-teal));
+  margin-bottom: 5px;
+}
+.dht-tip-card h4 { font-size: 13px; font-weight: 700; color: var(--text-primary); line-height: 1.4; margin-bottom: 5px; }
+.dht-tip-card p { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .dht-library-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .dht-hero-body { flex-direction: column; }
+  .dht-icon { width: 64px; height: 64px; font-size: 26px; }
+  .dht-hero-footer { flex-direction: column; align-items: stretch; }
+  .dht-nav-btns { justify-content: space-between; }
+  .dht-next-btn { flex: 1; justify-content: center; }
+  .dht-library-grid { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vaccination Tracker · HealthBridge AI</title>
+<meta name="description" content="HealthBridge AI Vaccination Tracker — track upcoming, overdue, and completed vaccinations, all in one place.">
+
+<!-- Fonts & Icons -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="vaccination-tracker.css">
+</head>
+<body>
+
+<a href="#mainContent" class="skip-link">Skip to main content</a>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="app">
+  <script>
+    if (localStorage.getItem('healthbridge-sidebar') === 'collapsed' && window.innerWidth > 900) {
+      document.currentScript.parentElement.classList.add('sidebar-collapsed');
+    }
+  </script>
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+    <div class="brand">
+      <div class="brand-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+      <div class="brand-text">
+        <h1>HealthBridge AI</h1>
+        <span>Your AI Health Companion</span>
+      </div>
+    </div>
+
+    <nav class="nav-group">
+      <a href="dashboard.html" class="nav-link"><i class="fa-solid fa-house"></i> Dashboard</a>
+      <a href="chat.html" class="nav-link"><i class="fa-solid fa-comment-medical"></i> Chat Assistant</a>
+      <a href="symptom-checker.html" class="nav-link"><i class="fa-solid fa-stethoscope"></i> Symptom Checker</a>
+      <a href="disease-awareness.html" class="nav-link"><i class="fa-solid fa-book-medical"></i> Disease Awareness</a>
+      <a href="vaccination-tracker.html" class="nav-link active" aria-current="page"><i class="fa-solid fa-syringe"></i> Vaccination Tracker</a>
+      <a href="health-alerts.html" class="nav-link"><i class="fa-solid fa-bell"></i> Health Alerts</a>
+      <a href="emergency-help.html" class="nav-link"><i class="fa-solid fa-phone-volume"></i> Emergency Help</a>
+      <a href="profile.html" class="nav-link"><i class="fa-solid fa-user"></i> Profile</a>
+      <a href="settings.html" class="nav-link"><i class="fa-solid fa-gear"></i> Settings</a>
+    </nav>
+
+    <div class="lang-select-wrap">
+      <i class="fa-solid fa-globe"></i>
+      <select class="lang-select" aria-label="Select language">
+        <option>English</option>
+      </select>
+      <i class="fa-solid fa-chevron-down"></i>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="icon-shield"><i class="fa-solid fa-syringe"></i></div>
+      <h4>Vaccines keep you and your loved ones safe.</h4>
+      <p>Track, manage and get reminders for all your vaccines.</p>
+      <a href="#vtBenefits" class="vt-sidebar-link">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <div class="main">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="3.5" ry="3.5"></rect>
+          <line x1="9" y1="3" x2="9" y2="21"></line>
+        </svg>
+      </button>
+
+      <div class="topbar-center" style="display: flex; align-items: center; justify-content: center; flex: 1;">
+        <!-- Location moved to Live Surveillance -->
+      </div>
+
+      <div class="topbar-actions">
+        <button class="icon-btn" id="notifBell" aria-label="Notifications">
+          <i class="fa-solid fa-bell"></i>
+          <span class="badge-dot">3</span>
+        </button>
+
+        <button class="theme-toggle" id="themeToggle" role="switch" aria-checked="false" aria-label="Toggle dark mode">
+          <span class="knob">
+            <i class="fa-solid fa-sun icon-sun" aria-hidden="true"></i>
+            <i class="fa-solid fa-moon icon-moon" aria-hidden="true"></i>
+          </span>
+        </button>
+
+        <!-- Auth Unsigned State -->
+        <div id="authUnsigned" style="display: none; align-items: center; gap: 8px;">
+          <button id="btnAuthGuest" style="background: rgba(255,255,255,0.7); border: 1px solid rgba(0,0,0,0.1); padding: 8px 16px; border-radius: 20px; font-weight: 600; font-size: 13px; cursor: pointer; color: var(--text-secondary); transition: all 0.2s;">Guest</button>
+          <button id="btnAuthSignUp" style="background: var(--brand-teal); border: none; padding: 8px 16px; border-radius: 20px; font-weight: 600; font-size: 13px; cursor: pointer; color: white; box-shadow: 0 4px 10px rgba(13,148,136,0.3); transition: all 0.2s;">Sign Up / Login</button>
+        </div>
+
+        <!-- Auth Signed In State -->
+        <div id="authSignedIn" style="display: none; align-items: center; gap: 12px;">
+          <div id="authAccountInfo" style="cursor: pointer; display: flex; align-items: center; gap: 8px; background: rgba(20, 184, 166, 0.1); padding: 4px 14px 4px 4px; border-radius: 30px; border: 1px solid rgba(20, 184, 166, 0.2); transition: all 0.2s;">
+            <div class="avatar" id="authAvatar" role="img" aria-label="User profile" style="width: 28px; height: 28px; font-size: 11.5px; background: var(--brand-teal); color: white;">US</div>
+            <span id="authAccountName" style="font-weight: 600; font-size: 13px; color: var(--text-primary);">User</span>
+          </div>
+          <button id="btnAuthSignOut" aria-label="Sign out" style="background: transparent; border: 1px solid rgba(0,0,0,0.1); width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text-secondary); transition: all 0.2s;">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          </button>
+        </div>
+        <!-- Inline sync auth init: show correct state immediately from localStorage -->
+        <script>
+          (function() {
+            var token = localStorage.getItem('hb_jwt_token');
+            var name  = localStorage.getItem('hb_user_name') || 'User';
+            var uEl = document.getElementById('authUnsigned');
+            var sEl = document.getElementById('authSignedIn');
+            var nEl = document.getElementById('authAccountName');
+            var aEl = document.getElementById('authAvatar');
+            if (token) {
+              if (sEl) sEl.style.display = 'flex';
+              if (uEl) uEl.style.display = 'none';
+              if (nEl) nEl.textContent = name;
+              if (aEl) aEl.textContent = name.substring(0, 2).toUpperCase();
+            } else {
+              if (uEl) uEl.style.display = 'flex';
+              if (sEl) sEl.style.display = 'none';
+            }
+          })();
+        </script>      </div>
+    </header>
+
+    <!-- PAGE CONTENT -->
+    <main class="page vt-page" id="mainContent">
+
+      <div class="page-header sc-page-header vt-page-header">
+        <div>
+          <h2>Vaccination Tracker</h2>
+          <p>Stay protected. Stay updated.</p>
+        </div>
+        <button type="button" class="sc-howitworks-btn" id="vtDownloadBtn">
+          <i class="fa-solid fa-download" aria-hidden="true"></i> Download Record
+        </button>
+      </div>
+
+      <!-- ============ SUMMARY STATISTICS ============ -->
+      <div class="vt-summary-grid">
+        <div class="panel card reveal vt-stat-card vt-stat-uptodate">
+          <div class="vt-stat-icon"><i class="fa-solid fa-shield-heart" aria-hidden="true"></i></div>
+          <div class="vt-stat-text">
+            <span class="vt-stat-label">Up to date</span>
+            <strong class="vt-stat-value" id="vtStatUptodate">0</strong>
+            <span class="vt-stat-sub">Vaccines completed</span>
+          </div>
+        </div>
+        <div class="panel card reveal vt-stat-card vt-stat-upcoming">
+          <div class="vt-stat-icon"><i class="fa-regular fa-clock" aria-hidden="true"></i></div>
+          <div class="vt-stat-text">
+            <span class="vt-stat-label">Upcoming</span>
+            <strong class="vt-stat-value" id="vtStatUpcoming">0</strong>
+            <span class="vt-stat-sub">Vaccines due</span>
+          </div>
+        </div>
+        <div class="panel card reveal vt-stat-card vt-stat-overdue">
+          <div class="vt-stat-icon"><i class="fa-solid fa-calendar-xmark" aria-hidden="true"></i></div>
+          <div class="vt-stat-text">
+            <span class="vt-stat-label">Overdue</span>
+            <strong class="vt-stat-value" id="vtStatOverdue">0</strong>
+            <span class="vt-stat-sub">Take action</span>
+          </div>
+        </div>
+        <div class="panel card reveal vt-stat-card vt-stat-total">
+          <div class="vt-stat-icon"><i class="fa-regular fa-file-lines" aria-hidden="true"></i></div>
+          <div class="vt-stat-text">
+            <span class="vt-stat-label">Total</span>
+            <strong class="vt-stat-value" id="vtStatTotal">0</strong>
+            <span class="vt-stat-sub">All vaccines</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ UPCOMING + CALENDAR ============ -->
+      <div class="vt-two-col">
+
+        <section class="panel card reveal">
+          <div class="panel-head">
+            <h3>Upcoming Vaccinations</h3>
+            <button type="button" class="link-btn" id="vtUpcomingViewAll">View All</button>
+          </div>
+          <div class="vt-upcoming-list" id="vtUpcomingList" aria-live="polite"><!-- populated by vaccination-tracker.js --></div>
+        </section>
+
+        <section class="panel card reveal">
+          <div class="vt-calendar-head">
+            <h4 id="vtCalMonthLabel">Vaccination Calendar</h4>
+            <div class="vt-cal-nav">
+              <button type="button" class="vt-cal-nav-btn" id="vtCalPrev" aria-label="Previous month"><i class="fa-solid fa-chevron-left" aria-hidden="true"></i></button>
+              <button type="button" class="vt-cal-nav-btn" id="vtCalNext" aria-label="Next month"><i class="fa-solid fa-chevron-right" aria-hidden="true"></i></button>
+            </div>
+          </div>
+          <div class="vt-cal-weekdays" aria-hidden="true">
+            <span>SUN</span><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span>
+          </div>
+          <div class="vt-cal-grid" id="vtCalGrid" aria-label="Vaccination calendar"><!-- populated by vaccination-tracker.js --></div>
+          <div class="vt-cal-legend">
+            <span class="vt-cal-legend-item"><span class="vt-cal-legend-dot vt-cal-completed"></span> Completed</span>
+            <span class="vt-cal-legend-item"><span class="vt-cal-legend-dot vt-cal-upcoming"></span> Upcoming</span>
+            <span class="vt-cal-legend-item"><span class="vt-cal-legend-dot vt-cal-overdue"></span> Overdue</span>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- ============ HISTORY + CATEGORY ============ -->
+      <div class="vt-two-col">
+
+        <section class="panel card reveal">
+          <div class="panel-head">
+            <h3>Vaccination History</h3>
+            <button type="button" class="link-btn" id="vtHistoryViewAll">View All</button>
+          </div>
+          <div class="vt-history-list" id="vtHistoryList" aria-live="polite"><!-- populated by vaccination-tracker.js --></div>
+          <button type="button" class="vt-history-viewall" id="vtHistoryFullBtn"><i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i> View Full History <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+        </section>
+
+        <section class="panel card reveal">
+          <div class="panel-head"><h3>Vaccine by Category</h3></div>
+          <div class="vt-category-body">
+            <div class="vt-donut-wrap">
+              <div class="vt-donut" id="vtDonut" aria-hidden="true"></div>
+              <div class="vt-donut-center"><strong id="vtDonutTotal">0</strong><span>Total</span></div>
+            </div>
+            <div class="vt-category-legend" id="vtCategoryLegend"><!-- populated by vaccination-tracker.js --></div>
+          </div>
+          <button type="button" class="vt-category-seedetails" id="vtCategorySeeDetails"><i class="fa-solid fa-chart-pie" aria-hidden="true"></i> See Details</button>
+        </section>
+
+      </div>
+
+      <!-- ============ ADD RECORD + WHY IT MATTERS ============ -->
+      <div class="vt-two-col">
+
+        <section class="panel card reveal vt-add-record">
+          <div class="vt-add-record-text">
+            <h3>Add Vaccination Record</h3>
+            <p>Manually add a vaccine you've taken outside our records.</p>
+            <button type="button" class="vt-add-btn" id="vtAddVaccinationBtn">
+              <i class="fa-solid fa-plus" aria-hidden="true"></i>
+              <span>Add Vaccination<span class="vt-add-btn-sub">Quick · Easy · Secure</span></span>
+            </button>
+          </div>
+          <div class="vt-add-record-art" aria-hidden="true"><i class="fa-solid fa-syringe"></i></div>
+        </section>
+
+        <section class="panel card reveal" id="vtBenefits">
+          <div class="panel-head"><h3>Why Vaccination Matters</h3></div>
+          <div class="vt-benefits-grid">
+            <div class="vt-benefit-item">
+              <div class="vt-benefit-icon"><i class="fa-solid fa-shield-virus" aria-hidden="true"></i></div>
+              <div class="vt-benefit-text"><h4>Prevents Diseases</h4><p>Vaccines help protect you from serious diseases.</p></div>
+            </div>
+            <div class="vt-benefit-item">
+              <div class="vt-benefit-icon"><i class="fa-solid fa-people-group" aria-hidden="true"></i></div>
+              <div class="vt-benefit-text"><h4>Community Protection</h4><p>Helps keep your family and community safe.</p></div>
+            </div>
+            <div class="vt-benefit-item">
+              <div class="vt-benefit-icon"><i class="fa-solid fa-award" aria-hidden="true"></i></div>
+              <div class="vt-benefit-text"><h4>Trusted &amp; Safe</h4><p>Approved vaccines are tested and monitored for safety.</p></div>
+            </div>
+            <div class="vt-benefit-item">
+              <div class="vt-benefit-icon"><i class="fa-solid fa-heart-pulse" aria-hidden="true"></i></div>
+              <div class="vt-benefit-text"><h4>Better Health</h4><p>A healthier you leads to a healthier tomorrow.</p></div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- ============ DISCLAIMER ============ -->
+      <p class="vt-disclaimer">
+        <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+        <span>Keep your vaccination record updated for accurate reminders and protection.
+          <span class="vt-disclaimer-sub">This tracker uses prototype/demo data and is not a real medical record. Please consult a qualified healthcare professional for vaccination recommendations.</span>
+        </span>
+      </p>
+
+    </main>
+
+    <!-- ============ MODAL (Add Vaccination / View All / History / Category) ============ -->
+    <div class="vt-modal-overlay" id="vtModalOverlay" hidden>
+      <div class="vt-modal" id="vtModal" role="dialog" aria-modal="true" aria-labelledby="vtModalTitle">
+        <div class="vt-modal-head">
+          <h3 id="vtModalTitle">Vaccination Tracker</h3>
+          <button type="button" class="vt-modal-close" id="vtModalClose" aria-label="Close"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+        </div>
+        <div class="vt-modal-body" id="vtModalBody"><!-- populated by vaccination-tracker.js --></div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      © 2026 HealthBridge AI — Smart VIT Hackathon 2026 &nbsp;|&nbsp; An initiative for public health awareness
+    </footer>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="script.js"></script>
+<script src="vaccination-tracker.js"></script>
+<script>
+(function() {
+  function forceReveal() {
+    document.body.classList.remove('is-loading');
+    document.querySelectorAll('.skeleton-block').forEach(function(e) {
+      e.style.display = 'none';
+      e.hidden = true;
+    });
+    document.querySelectorAll('.real-content').forEach(function(e) {
+      e.style.display = 'block';
+      e.hidden = false;
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', forceReveal);
+  } else {
+    forceReveal();
+  }
+  setTimeout(forceReveal, 100);
+  setTimeout(forceReveal, 500);
+})();
+</script>
+
+</body>
+</html>

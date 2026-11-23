@@ -1,0 +1,8 @@
+{
+  "name": "healthbridge",
+  "version": "1.0.0",
+  "description": "HealthBridge Static Site",
+  "scripts": {
+    "dev": "npx vite ."
+  }
+}

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Health Tips · HealthBridge AI</title>
+<meta name="description" content="HealthBridge AI Daily Health Tips — simple, practical health guidance for every day.">
+
+<!-- Fonts & Icons -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="daily-health-tip.css">
+</head>
+<body>
+
+<a href="#mainContent" class="skip-link">Skip to main content</a>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="app">
+  <script>
+    if (localStorage.getItem('healthbridge-sidebar') === 'collapsed' && window.innerWidth > 900) {
+      document.currentScript.parentElement.classList.add('sidebar-collapsed');
+    }
+  </script>
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+    <div class="brand">
+      <div class="brand-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+      <div class="brand-text">
+        <h1>HealthBridge AI</h1>
+        <span>Your AI Health Companion</span>
+      </div>
+    </div>
+
+    <nav class="nav-group">
+      <a href="dashboard.html" class="nav-link"><i class="fa-solid fa-house"></i> Dashboard</a>
+      <a href="chat.html" class="nav-link"><i class="fa-solid fa-comment-medical"></i> Chat Assistant</a>
+      <a href="symptom-checker.html" class="nav-link"><i class="fa-solid fa-stethoscope"></i> Symptom Checker</a>
+      <a href="disease-awareness.html" class="nav-link"><i class="fa-solid fa-book-medical"></i> Disease Awareness</a>
+      <a href="vaccination-tracker.html" class="nav-link"><i class="fa-solid fa-syringe"></i> Vaccination Tracker</a>
+      <a href="health-alerts.html" class="nav-link"><i class="fa-solid fa-bell"></i> Health Alerts</a>
+      <a href="daily-health-tips.html" class="nav-link active" aria-current="page"><i class="fa-solid fa-lightbulb"></i> Daily Health Tips</a>
+      <a href="emergency-help.html" class="nav-link"><i class="fa-solid fa-phone-volume"></i> Emergency Help</a>
+      <a href="profile.html" class="nav-link"><i class="fa-solid fa-user"></i> Profile</a>
+      <a href="settings.html" class="nav-link"><i class="fa-solid fa-gear"></i> Settings</a>
+    </nav>
+
+    <div class="lang-select-wrap">
+      <i class="fa-solid fa-globe"></i>
+      <select class="lang-select" aria-label="Select language">
+        <option>English</option>
+      </select>
+      <i class="fa-solid fa-chevron-down"></i>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="icon-shield"><i class="fa-solid fa-shield-heart"></i></div>
+      <h4>Your health is our priority</h4>
+      <p>Reliable. Accurate. Always with you.</p>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <div class="main">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu"><i class="fa-solid fa-bars"></i></button>
+
+      <div class="search-bar">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" placeholder="Search diseases, symptoms, vaccines…" aria-label="Search">
+      </div>
+
+      <div class="topbar-actions">
+        <button class="icon-btn" id="notifBell" aria-label="Notifications">
+          <i class="fa-solid fa-bell"></i>
+          <span class="badge-dot">3</span>
+        </button>
+
+        <button class="theme-toggle" id="themeToggle" role="switch" aria-checked="false" aria-label="Toggle dark mode">
+          <span class="knob">
+            <i class="fa-solid fa-sun icon-sun" aria-hidden="true"></i>
+            <i class="fa-solid fa-moon icon-moon" aria-hidden="true"></i>
+          </span>
+        </button>
+
+        <!-- Auth Unsigned State -->
+        <div id="authUnsigned" style="display: none; align-items: center; gap: 8px;">
+          <button id="btnAuthGuest" style="background: rgba(255,255,255,0.7); border: 1px solid rgba(0,0,0,0.1); padding: 8px 16px; border-radius: 20px; font-weight: 600; font-size: 13px; cursor: pointer; color: var(--text-secondary); transition: all 0.2s;">Guest</button>
+          <button id="btnAuthSignUp" style="background: var(--brand-teal); border: none; padding: 8px 16px; border-radius: 20px; font-weight: 600; font-size: 13px; cursor: pointer; color: white; box-shadow: 0 4px 10px rgba(13,148,136,0.3); transition: all 0.2s;">Sign Up / Login</button>
+        </div>
+
+        <!-- Auth Signed In State -->
+        <div id="authSignedIn" style="display: none; align-items: center; gap: 12px;">
+          <div id="authAccountInfo" style="cursor: pointer; display: flex; align-items: center; gap: 8px; background: rgba(20, 184, 166, 0.1); padding: 4px 14px 4px 4px; border-radius: 30px; border: 1px solid rgba(20, 184, 166, 0.2); transition: all 0.2s;">
+            <div class="avatar" id="authAvatar" role="img" aria-label="User profile" style="width: 28px; height: 28px; font-size: 11.5px; background: var(--brand-teal); color: white;">US</div>
+            <span id="authAccountName" style="font-weight: 600; font-size: 13px; color: var(--text-primary);">User</span>
+          </div>
+          <button id="btnAuthSignOut" aria-label="Sign out" style="background: transparent; border: 1px solid rgba(0,0,0,0.1); width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text-secondary); transition: all 0.2s;">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- PAGE CONTENT -->
+    <main class="page" id="mainContent">
+
+      <div class="page-header dht-page-header">
+        <div>
+          <h2>Daily Health Tips</h2>
+          <p>Simple, practical health guidance for every day.</p>
+        </div>
+      </div>
+
+      <!-- ============ TODAY'S HEALTH TIP ============ -->
+      <section class="panel card reveal dht-hero" id="dhtHero" aria-live="polite">
+        <div class="dht-hero-top">
+          <span class="dht-badge"><i class="fa-solid fa-lightbulb" aria-hidden="true"></i> Daily Health Tip</span>
+          <span class="new-pill">New</span>
+        </div>
+
+        <div class="dht-hero-body">
+          <div class="dht-icon dht-c-blue" id="dhtIcon" aria-hidden="true"><i class="fa-solid fa-droplet"></i></div>
+          <div class="dht-hero-content">
+            <span class="dht-category dht-c-blue" id="dhtCategory">Hydration</span>
+            <h3 id="dhtTitle">Stay Hydrated</h3>
+            <p id="dhtDescription">Drinking enough clean water throughout the day helps support energy, concentration and overall wellbeing.</p>
+          </div>
+        </div>
+
+        <div class="dht-hero-footer">
+          <span class="dht-counter" id="dhtCounter">Tip 1 of 10</span>
+          <div class="dht-nav-btns">
+            <button type="button" class="dht-prev-btn" id="dhtPrevBtn" aria-label="Previous tip"><i class="fa-solid fa-arrow-left"></i></button>
+            <button type="button" class="dht-next-btn" id="dhtNextBtn">Next Tip <i class="fa-solid fa-arrow-right"></i></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ EXPLORE HEALTH TIPS ============ -->
+      <section class="panel card reveal">
+        <div class="panel-head"><h3>Explore Health Tips</h3></div>
+        <div class="dht-library-grid" id="dhtLibraryGrid" aria-label="All health tips"><!-- populated by daily-health-tip.js --></div>
+      </section>
+
+    </main>
+
+    <footer class="footer">
+      © 2026 HealthBridge AI — Smart VIT Hackathon 2026 &nbsp;|&nbsp; An initiative for public health awareness
+    </footer>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="script.js"></script>
+<script src="daily-health-tip.js"></script>
+<script>
+(function() {
+  function forceReveal() {
+    document.body.classList.remove('is-loading');
+    document.querySelectorAll('.skeleton-block').forEach(function(e) {
+      e.style.display = 'none';
+      e.hidden = true;
+    });
+    document.querySelectorAll('.real-content').forEach(function(e) {
+      e.style.display = 'block';
+      e.hidden = false;
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', forceReveal);
+  } else {
+    forceReveal();
+  }
+  setTimeout(forceReveal, 100);
+  setTimeout(forceReveal, 500);
+})();
+</script>
+
+</body>
+</html>

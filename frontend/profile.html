@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Profile · HealthBridge AI</title>
+<meta name="description" content="HealthBridge AI Profile — manage your personal information, health profile, and emergency contacts.">
+
+<!-- Fonts & Icons -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<a href="#mainContent" class="skip-link">Skip to main content</a>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="app">
+  <script>
+    if (localStorage.getItem('healthbridge-sidebar') === 'collapsed' && window.innerWidth > 900) {
+      document.currentScript.parentElement.classList.add('sidebar-collapsed');
+    }
+  </script>
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+    <div class="brand">
+      <div class="brand-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+      <div class="brand-text">
+        <h1>HealthBridge AI</h1>
+        <span>Your AI Health Companion</span>
+      </div>
+    </div>
+
+    <nav class="nav-group">
+      <a href="dashboard.html" class="nav-link"><i class="fa-solid fa-house"></i> Dashboard</a>
+      <a href="chat.html" class="nav-link"><i class="fa-solid fa-comment-medical"></i> Chat Assistant</a>
+      <a href="symptom-checker.html" class="nav-link"><i class="fa-solid fa-stethoscope"></i> Symptom Checker</a>
+      <a href="disease-awareness.html" class="nav-link"><i class="fa-solid fa-book-medical"></i> Disease Awareness</a>
+      <a href="vaccination-tracker.html" class="nav-link"><i class="fa-solid fa-syringe"></i> Vaccination Tracker</a>
+      <a href="health-alerts.html" class="nav-link"><i class="fa-solid fa-bell"></i> Health Alerts</a>
+      <a href="emergency-help.html" class="nav-link"><i class="fa-solid fa-phone-volume"></i> Emergency Help</a>
+      <a href="profile.html" class="nav-link active" aria-current="page"><i class="fa-solid fa-user"></i> Profile</a>
+      <a href="settings.html" class="nav-link"><i class="fa-solid fa-gear"></i> Settings</a>
+    </nav>
+
+    <div class="lang-select-wrap">
+      <i class="fa-solid fa-globe"></i>
+      <select class="lang-select" aria-label="Select language">
+        <option>English</option>
+      </select>
+      <i class="fa-solid fa-chevron-down"></i>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="icon-shield"><i class="fa-solid fa-shield-heart"></i></div>
+      <h4>Your health is our priority</h4>
+      <p>Reliable. Accurate. Always with you.</p>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <div class="main">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="3.5" ry="3.5"></rect>
+          <line x1="9" y1="3" x2="9" y2="21"></line>
+        </svg>
+      </button>
+
+      <div class="topbar-center" style="display: flex; align-items: center; justify-content: center; flex: 1;">
+        <!-- Location moved to Live Surveillance -->
+      </div>
+
+      <div class="topbar-actions">
+        <button class="icon-btn" id="notifBell" aria-label="Notifications">
+          <i class="fa-solid fa-bell"></i>
+          <span class="badge-dot">3</span>
+        </button>
+
+        <button class="theme-toggle" id="themeToggle" role="switch" aria-checked="false" aria-label="Toggle dark mode">
+          <span class="knob">
+            <i class="fa-solid fa-sun icon-sun" aria-hidden="true"></i>
+            <i class="fa-solid fa-moon icon-moon" aria-hidden="true"></i>
+          </span>
+        </button>
+
+        <!-- Auth Unsigned State -->
+        <div id="authUnsigned" style="display: none; align-items: center; gap: 8px;">
+          <button id="btnAuthGuest" style="background: rgba(255,255,255,0.7); border: 1px solid rgba(0,0,0,0.1); padding: 8px 16px; border-radius: 20px; font-weight: 600; font-size: 13px; cursor: pointer; color: var(--text-secondary); transition: all 0.2s;">Guest</button>
+          <button id="btnAuthSignUp" style="background: var(--brand-teal); border: none; padding: 8px 16px; border-radius: 20px; font-weight: 600; font-size: 13px; cursor: pointer; color: white; box-shadow: 0 4px 10px rgba(13,148,136,0.3); transition: all 0.2s;">Sign Up / Login</button>
+        </div>
+
+        <!-- Auth Signed In State -->
+        <div id="authSignedIn" style="display: none; align-items: center; gap: 12px;">
+          <div id="authAccountInfo" style="cursor: pointer; display: flex; align-items: center; gap: 8px; background: rgba(20, 184, 166, 0.1); padding: 4px 14px 4px 4px; border-radius: 30px; border: 1px solid rgba(20, 184, 166, 0.2); transition: all 0.2s;">
+            <div class="avatar" id="authAvatar" role="img" aria-label="User profile" style="width: 28px; height: 28px; font-size: 11.5px; background: var(--brand-teal); color: white;">US</div>
+            <span id="authAccountName" style="font-weight: 600; font-size: 13px; color: var(--text-primary);">User</span>
+          </div>
+          <button id="btnAuthSignOut" aria-label="Sign out" style="background: transparent; border: 1px solid rgba(0,0,0,0.1); width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text-secondary); transition: all 0.2s;">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          </button>
+        </div>
+        <!-- Inline sync auth init: show correct state immediately from localStorage -->
+        <script>
+          (function() {
+            var token = localStorage.getItem('hb_jwt_token');
+            var name  = localStorage.getItem('hb_user_name') || 'User';
+            var uEl = document.getElementById('authUnsigned');
+            var sEl = document.getElementById('authSignedIn');
+            var nEl = document.getElementById('authAccountName');
+            var aEl = document.getElementById('authAvatar');
+            if (token) {
+              if (sEl) sEl.style.display = 'flex';
+              if (uEl) uEl.style.display = 'none';
+              if (nEl) nEl.textContent = name;
+              if (aEl) aEl.textContent = name.substring(0, 2).toUpperCase();
+            } else {
+              if (uEl) uEl.style.display = 'flex';
+              if (sEl) sEl.style.display = 'none';
+            }
+          })();
+        </script>      </div>
+    </header>
+
+    <!-- PAGE CONTENT -->
+    <main class="page" id="mainContent">
+
+      <div class="page-header sc-page-header">
+        <div>
+          <h2>My Profile</h2>
+          <p>Manage your health information and preferences.</p>
+        </div>
+        <button type="button" class="sc-howitworks-btn" id="pfEditBtn">
+          <i class="fa-regular fa-pen-to-square"></i> Edit Profile
+        </button>
+      </div>
+
+      <div class="pf-layout">
+        <div class="pf-main">
+
+          <!-- 1. PROFILE HEADER -->
+          <section class="pf-header card reveal">
+            <div class="pf-header-top">
+              <div class="pf-avatar" aria-hidden="true"><i class="fa-solid fa-user"></i></div>
+
+              <div class="pf-header-info">
+                <h3 class="pf-empty-value" id="pfName" data-pf-field="fullName">Not provided</h3>
+                <p class="pf-header-meta">
+                  <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                  <span class="pf-empty-value" id="pfLocation" data-pf-field="location">Not provided</span>
+                </p>
+              </div>
+
+              <div class="pf-completeness">
+                <div class="pf-ring-wrap">
+                  <svg class="pf-ring" viewBox="0 0 84 84" aria-hidden="true">
+                    <circle class="pf-ring-track" cx="42" cy="42" r="36"></circle>
+                    <circle class="pf-ring-progress" id="pfRingProgress" cx="42" cy="42" r="36"></circle>
+                  </svg>
+                  <div class="pf-ring-text">
+                    <strong id="pfCompletenessPct">0%</strong>
+                    <span>Complete</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <p class="pf-completeness-note" id="pfCompletenessNote" role="status">
+              Your profile is empty. Add your information to get more personalized guidance.
+            </p>
+          </section>
+
+          <!-- 2. PERSONAL INFORMATION -->
+          <section class="panel card reveal" id="pfPersonalPanel">
+            <div class="panel-head">
+              <h3><i class="fa-solid fa-id-card pf-panel-icon" aria-hidden="true"></i> Personal Information</h3>
+            </div>
+            <div class="pf-field-grid">
+              <div class="pf-field">
+                <span class="pf-field-label">Full Name <span class="pf-required-mark" aria-hidden="true">*</span></span>
+                <span class="pf-field-value pf-empty-value" data-pf-field="fullName">Not provided</span>
+                <input type="text" class="pf-input" id="pfInputFullName" data-pf-input="fullName" placeholder="Enter your full name" hidden>
+                <span class="pf-field-error" id="pfErrorFullName" hidden></span>
+              </div>
+              <div class="pf-field">
+                <span class="pf-field-label">Email <span class="pf-required-mark" aria-hidden="true">*</span></span>
+                <span class="pf-field-value pf-empty-value" data-pf-field="email">Not provided</span>
+                <input type="email" class="pf-input" id="pfInputEmail" data-pf-input="email" placeholder="Enter your email address" hidden>
+                <span class="pf-field-error" id="pfErrorEmail" hidden></span>
+              </div>
+              <div class="pf-field">
+                <span class="pf-field-label">Phone</span>
+                <span class="pf-field-value pf-empty-value" data-pf-field="phone">Not provided</span>
+                <input type="tel" class="pf-input" id="pfInputPhone" data-pf-input="phone" placeholder="Enter your phone number" hidden>
+              </div>
+              <div class="pf-field">
+                <span class="pf-field-label">Location</span>
+                <span class="pf-field-value pf-empty-value" data-pf-field="location">Not provided</span>
+                <input type="text" class="pf-input" id="pfInputLocation" data-pf-input="location" placeholder="Enter your location" hidden>
+              </div>
+            </div>
+            <div class="pf-edit-actions" id="pfPersonalActions" hidden>
+              <button type="button" class="pf-cancel-btn" data-pf-cancel>Cancel</button>
+              <button type="button" class="pf-save-btn" data-pf-save><i class="fa-solid fa-check"></i> Save Changes</button>
+            </div>
+          </section>
+
+          <!-- 3. HEALTH PROFILE -->
+          <section class="panel card reveal" id="pfHealthPanel">
+            <div class="panel-head">
+              <h3><i class="fa-solid fa-heart-pulse pf-panel-icon" aria-hidden="true"></i> Health Profile</h3>
+            </div>
+            <div class="pf-field-grid">
+              <div class="pf-field">
+                <span class="pf-field-label">Blood Group</span>
+                <span class="pf-field-value pf-empty-value" data-pf-field="bloodGroup">Not provided</span>
+                <select class="pf-input" id="pfInputBloodGroup" data-pf-input="bloodGroup" hidden>
+                  <option value="">Select blood group</option>
+                  <option value="A+">A+</option>
+                  <option value="A-">A-</option>
+                  <option value="B+">B+</option>
+                  <option value="B-">B-</option>
+                  <option value="AB+">AB+</option>
+                  <option value="AB-">AB-</option>
+                  <option value="O+">O+</option>
+                  <option value="O-">O-</option>
+                </select>
+              </div>
+              <div class="pf-field">
+                <span class="pf-field-label">Date of Birth</span>
+                <span class="pf-field-value pf-empty-value" data-pf-field="dob">Not provided</span>
+                <input type="date" class="pf-input" id="pfInputDob" data-pf-input="dob" hidden>
+              </div>
+              <div class="pf-field">
+                <span class="pf-field-label">Height</span>
+                <span class="pf-field-value pf-empty-value" data-pf-field="height">Not provided</span>
+                <input type="text" class="pf-input" id="pfInputHeight" data-pf-input="height" placeholder="Enter height (cm)" hidden>
+              </div>
+              <div class="pf-field">
+                <span class="pf-field-label">Weight</span>
+                <span class="pf-field-value pf-empty-value" data-pf-field="weight">Not provided</span>
+                <input type="text" class="pf-input" id="pfInputWeight" data-pf-input="weight" placeholder="Enter weight (kg)" hidden>
+              </div>
+              <div class="pf-field pf-field-wide">
+                <span class="pf-field-label">Existing Conditions</span>
+                <span class="pf-field-value pf-empty-value" data-pf-field="conditions">None provided</span>
+                <textarea class="pf-input pf-textarea" id="pfInputConditions" data-pf-input="conditions" rows="2" placeholder="List any existing conditions" hidden></textarea>
+              </div>
+              <div class="pf-field pf-field-wide">
+                <span class="pf-field-label">Allergies</span>
+                <span class="pf-field-value pf-empty-value" data-pf-field="allergies">None provided</span>
+                <textarea class="pf-input pf-textarea" id="pfInputAllergies" data-pf-input="allergies" rows="2" placeholder="List any allergies" hidden></textarea>
+              </div>
+            </div>
+            <div class="pf-edit-actions" id="pfHealthActions" hidden>
+              <button type="button" class="pf-cancel-btn" data-pf-cancel>Cancel</button>
+              <button type="button" class="pf-save-btn" data-pf-save><i class="fa-solid fa-check"></i> Save Changes</button>
+            </div>
+          </section>
+
+          <!-- 4. EMERGENCY CONTACTS -->
+          <section class="panel card reveal">
+            <div class="panel-head">
+              <h3><i class="fa-solid fa-user-group pf-panel-icon" aria-hidden="true"></i> Emergency Contacts</h3>
+            </div>
+            <div class="empty-state">
+              <div class="empty-icon"><i class="fa-solid fa-address-book"></i></div>
+              <h4>No Emergency Contacts Added</h4>
+              <p>No emergency contacts added. Add trusted contacts so they can be reached quickly if needed.</p>
+              <button class="empty-action" type="button" data-coming-soon="Emergency Contacts">
+                <i class="fa-solid fa-user-plus"></i> Add Contact
+              </button>
+            </div>
+          </section>
+
+        </div>
+
+        <!-- RIGHT RAIL -->
+        <aside class="pf-rail">
+
+          <!-- 5. HEALTH OVERVIEW -->
+          <section class="panel card reveal">
+            <div class="panel-head"><h3>Health Overview</h3></div>
+            <div class="pf-overview-list">
+              <div class="pf-overview-item">
+                <div class="pf-overview-icon pf-ic-teal"><i class="fa-solid fa-stethoscope"></i></div>
+                <div class="pf-overview-text">
+                  <h4>Symptoms Checked</h4>
+                  <p>0 checks so far</p>
+                </div>
+              </div>
+              <div class="pf-overview-item">
+                <div class="pf-overview-icon pf-ic-green"><i class="fa-solid fa-syringe"></i></div>
+                <div class="pf-overview-text">
+                  <h4>Vaccinations</h4>
+                  <p>0 recorded</p>
+                </div>
+              </div>
+              <div class="pf-overview-item">
+                <div class="pf-overview-icon pf-ic-red"><i class="fa-solid fa-bell"></i></div>
+                <div class="pf-overview-text">
+                  <h4>Health Alerts</h4>
+                  <p>0 active alerts</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 6. RECENT ACTIVITY -->
+          <section class="panel card reveal">
+            <div class="panel-head"><h3>Recent Activity</h3></div>
+            <div class="empty-state">
+              <div class="empty-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+              <h4>No Recent Activity</h4>
+              <p>No recent activity. Actions you take in HealthBridge will show up here.</p>
+            </div>
+          </section>
+
+        </aside>
+      </div>
+
+    </main>
+
+    <footer class="footer">
+      © 2026 HealthBridge AI — Smart VIT Hackathon 2026 &nbsp;|&nbsp; An initiative for public health awareness
+    </footer>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="script.js"></script>
+<script>
+(function() {
+  function forceReveal() {
+    document.body.classList.remove('is-loading');
+    document.querySelectorAll('.skeleton-block').forEach(function(e) {
+      e.style.display = 'none';
+      e.hidden = true;
+    });
+    document.querySelectorAll('.real-content').forEach(function(e) {
+      e.style.display = 'block';
+      e.hidden = false;
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', forceReveal);
+  } else {
+    forceReveal();
+  }
+  setTimeout(forceReveal, 100);
+  setTimeout(forceReveal, 500);
+})();
+</script>
+
+</body>
+</html>

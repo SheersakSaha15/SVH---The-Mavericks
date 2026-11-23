@@ -1,0 +1,1157 @@
+[
+  {
+    "id": "D001",
+    "name": "Dengue",
+    "aliases": [
+      "dengue fever"
+    ],
+    "category": "communicable",
+    "description": "General health-awareness information about Dengue.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "May spread through an infectious agent or exposure route specific to the condition.",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D002",
+    "name": "Malaria",
+    "aliases": [
+      "malaria fever"
+    ],
+    "category": "communicable",
+    "description": "General health-awareness information about Malaria.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "May spread through an infectious agent or exposure route specific to the condition.",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D003",
+    "name": "Cholera",
+    "aliases": [],
+    "category": "communicable",
+    "description": "General health-awareness information about Cholera.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "May spread through an infectious agent or exposure route specific to the condition.",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D004",
+    "name": "Tuberculosis",
+    "aliases": [
+      "TB"
+    ],
+    "category": "communicable",
+    "description": "General health-awareness information about Tuberculosis.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "May spread through an infectious agent or exposure route specific to the condition.",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D005",
+    "name": "Typhoid / Enteric Fever",
+    "aliases": [
+      "typhoid",
+      "enteric fever"
+    ],
+    "category": "communicable",
+    "description": "General health-awareness information about Typhoid / Enteric Fever.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "May spread through an infectious agent or exposure route specific to the condition.",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D006",
+    "name": "Hepatitis A",
+    "aliases": [],
+    "category": "communicable",
+    "description": "General health-awareness information about Hepatitis A.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "May spread through an infectious agent or exposure route specific to the condition.",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D007",
+    "name": "Hepatitis B",
+    "aliases": [],
+    "category": "communicable",
+    "description": "General health-awareness information about Hepatitis B.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "May spread through an infectious agent or exposure route specific to the condition.",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D008",
+    "name": "Hepatitis C",
+    "aliases": [],
+    "category": "communicable",
+    "description": "General health-awareness information about Hepatitis C.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "May spread through an infectious agent or exposure route specific to the condition.",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D009",
+    "name": "Hepatitis E",
+    "aliases": [],
+    "category": "communicable",
+    "description": "General health-awareness information about Hepatitis E.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "May spread through an infectious agent or exposure route specific to the condition.",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D010",
+    "name": "Rabies",
+    "aliases": [],
+    "category": "communicable",
+    "description": "General health-awareness information about Rabies.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "May spread through an infectious agent or exposure route specific to the condition.",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D011",
+    "name": "Measles",
+    "aliases": [],
+    "category": "communicable",
+    "description": "General health-awareness information about Measles.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "May spread through an infectious agent or exposure route specific to the condition.",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D012",
+    "name": "Chickenpox",
+    "aliases": [
+      "varicella"
+    ],
+    "category": "communicable",
+    "description": "General health-awareness information about Chickenpox.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "May spread through an infectious agent or exposure route specific to the condition.",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D013",
+    "name": "Influenza",
+    "aliases": [
+      "flu"
+    ],
+    "category": "communicable",
+    "description": "General health-awareness information about Influenza.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "May spread through an infectious agent or exposure route specific to the condition.",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D014",
+    "name": "Pneumonia",
+    "aliases": [],
+    "category": "communicable",
+    "description": "General health-awareness information about Pneumonia.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "May spread through an infectious agent or exposure route specific to the condition.",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D015",
+    "name": "Acute Respiratory Infection",
+    "aliases": [
+      "ARI"
+    ],
+    "category": "communicable",
+    "description": "General health-awareness information about Acute Respiratory Infection.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "May spread through an infectious agent or exposure route specific to the condition.",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D016",
+    "name": "Acute Diarrhoeal Disease",
+    "aliases": [
+      "acute diarrhea",
+      "acute diarrhoea"
+    ],
+    "category": "communicable",
+    "description": "General health-awareness information about Acute Diarrhoeal Disease.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "May spread through an infectious agent or exposure route specific to the condition.",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D017",
+    "name": "Japanese Encephalitis",
+    "aliases": [
+      "JE"
+    ],
+    "category": "communicable",
+    "description": "General health-awareness information about Japanese Encephalitis.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "May spread through an infectious agent or exposure route specific to the condition.",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D018",
+    "name": "Scrub Typhus",
+    "aliases": [],
+    "category": "communicable",
+    "description": "General health-awareness information about Scrub Typhus.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "May spread through an infectious agent or exposure route specific to the condition.",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D019",
+    "name": "Leptospirosis",
+    "aliases": [],
+    "category": "communicable",
+    "description": "General health-awareness information about Leptospirosis.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "May spread through an infectious agent or exposure route specific to the condition.",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D020",
+    "name": "Meningitis",
+    "aliases": [],
+    "category": "communicable",
+    "description": "General health-awareness information about Meningitis.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "May spread through an infectious agent or exposure route specific to the condition.",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D021",
+    "name": "Diphtheria",
+    "aliases": [],
+    "category": "communicable",
+    "description": "General health-awareness information about Diphtheria.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "May spread through an infectious agent or exposure route specific to the condition.",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D022",
+    "name": "Pertussis",
+    "aliases": [
+      "whooping cough"
+    ],
+    "category": "communicable",
+    "description": "General health-awareness information about Pertussis.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "May spread through an infectious agent or exposure route specific to the condition.",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D023",
+    "name": "Tetanus",
+    "aliases": [],
+    "category": "communicable",
+    "description": "General health-awareness information about Tetanus.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "May spread through an infectious agent or exposure route specific to the condition.",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D024",
+    "name": "Chikungunya",
+    "aliases": [],
+    "category": "communicable",
+    "description": "General health-awareness information about Chikungunya.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "May spread through an infectious agent or exposure route specific to the condition.",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D025",
+    "name": "HIV/AIDS",
+    "aliases": [
+      "HIV",
+      "AIDS"
+    ],
+    "category": "communicable",
+    "description": "General health-awareness information about HIV/AIDS.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "May spread through an infectious agent or exposure route specific to the condition.",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D026",
+    "name": "Hypertension",
+    "aliases": [
+      "high blood pressure"
+    ],
+    "category": "non_communicable",
+    "description": "General health-awareness information about Hypertension.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "Not applicable",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D027",
+    "name": "Type 2 Diabetes",
+    "aliases": [
+      "type 2 diabetes",
+      "T2D"
+    ],
+    "category": "non_communicable",
+    "description": "General health-awareness information about Type 2 Diabetes.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "Not applicable",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D028",
+    "name": "Type 1 Diabetes",
+    "aliases": [
+      "type 1 diabetes",
+      "T1D"
+    ],
+    "category": "non_communicable",
+    "description": "General health-awareness information about Type 1 Diabetes.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "Not applicable",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D029",
+    "name": "Ischemic Heart Disease",
+    "aliases": [
+      "IHD",
+      "coronary heart disease"
+    ],
+    "category": "non_communicable",
+    "description": "General health-awareness information about Ischemic Heart Disease.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "Not applicable",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D030",
+    "name": "Stroke",
+    "aliases": [
+      "CVA",
+      "cerebrovascular accident"
+    ],
+    "category": "non_communicable",
+    "description": "General health-awareness information about Stroke.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "Not applicable",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D031",
+    "name": "Asthma",
+    "aliases": [
+      "asthma"
+    ],
+    "category": "non_communicable",
+    "description": "General health-awareness information about Asthma.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "Not applicable",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D032",
+    "name": "COPD",
+    "aliases": [
+      "chronic obstructive pulmonary disease"
+    ],
+    "category": "non_communicable",
+    "description": "General health-awareness information about COPD.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "Not applicable",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D033",
+    "name": "Chronic Bronchitis",
+    "aliases": [],
+    "category": "non_communicable",
+    "description": "General health-awareness information about Chronic Bronchitis.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "Not applicable",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D034",
+    "name": "Rheumatic Heart Disease",
+    "aliases": [],
+    "category": "non_communicable",
+    "description": "General health-awareness information about Rheumatic Heart Disease.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "Not applicable",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D035",
+    "name": "Chronic Kidney Disease",
+    "aliases": [
+      "CKD"
+    ],
+    "category": "non_communicable",
+    "description": "General health-awareness information about Chronic Kidney Disease.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "Not applicable",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D036",
+    "name": "Acute Kidney Injury",
+    "aliases": [
+      "AKI"
+    ],
+    "category": "non_communicable",
+    "description": "General health-awareness information about Acute Kidney Injury.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "Not applicable",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D037",
+    "name": "Breast Cancer",
+    "aliases": [],
+    "category": "non_communicable",
+    "description": "General health-awareness information about Breast Cancer.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "Not applicable",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D038",
+    "name": "Cervical Cancer",
+    "aliases": [],
+    "category": "non_communicable",
+    "description": "General health-awareness information about Cervical Cancer.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "Not applicable",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D039",
+    "name": "Lung Cancer",
+    "aliases": [],
+    "category": "non_communicable",
+    "description": "General health-awareness information about Lung Cancer.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "Not applicable",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D040",
+    "name": "Oral Cancer",
+    "aliases": [],
+    "category": "non_communicable",
+    "description": "General health-awareness information about Oral Cancer.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "Not applicable",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D041",
+    "name": "Colorectal Cancer",
+    "aliases": [],
+    "category": "non_communicable",
+    "description": "General health-awareness information about Colorectal Cancer.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "Not applicable",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D042",
+    "name": "Prostate Cancer",
+    "aliases": [],
+    "category": "non_communicable",
+    "description": "General health-awareness information about Prostate Cancer.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "Not applicable",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D043",
+    "name": "Thyroid Disorders",
+    "aliases": [],
+    "category": "non_communicable",
+    "description": "General health-awareness information about Thyroid Disorders.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "Not applicable",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D044",
+    "name": "Anemia",
+    "aliases": [
+      "anaemia"
+    ],
+    "category": "non_communicable",
+    "description": "General health-awareness information about Anemia.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "Not applicable",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D045",
+    "name": "Obesity",
+    "aliases": [],
+    "category": "non_communicable",
+    "description": "General health-awareness information about Obesity.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "Not applicable",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D046",
+    "name": "Epilepsy",
+    "aliases": [
+      "seizure disorder"
+    ],
+    "category": "non_communicable",
+    "description": "General health-awareness information about Epilepsy.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "Not applicable",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D047",
+    "name": "Chronic Liver Disease",
+    "aliases": [],
+    "category": "non_communicable",
+    "description": "General health-awareness information about Chronic Liver Disease.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "Not applicable",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D048",
+    "name": "Mental Health Disorders",
+    "aliases": [],
+    "category": "non_communicable",
+    "description": "General health-awareness information about Mental Health Disorders.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "Not applicable",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D049",
+    "name": "Snake Bite",
+    "aliases": [
+      "snakebite"
+    ],
+    "category": "injury_or_exposure",
+    "description": "General health-awareness information about Snake Bite.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "Not applicable",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  },
+  {
+    "id": "D050",
+    "name": "Road Traffic Injuries",
+    "aliases": [
+      "road accident injuries"
+    ],
+    "category": "injury_or_exposure",
+    "description": "General health-awareness information about Road Traffic Injuries.",
+    "symptoms": [
+      "symptoms vary by person and condition"
+    ],
+    "transmission": "Not applicable",
+    "prevention": [
+      "follow appropriate public-health guidance",
+      "maintain hygiene and healthy routines",
+      "seek professional advice when concerned"
+    ],
+    "warning_signs": [
+      "severe or rapidly worsening symptoms",
+      "difficulty breathing",
+      "loss of consciousness"
+    ],
+    "data_source": "synthetic_development"
+  }
+]

@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Symptom Checker · HealthBridge AI</title>
+<meta name="description" content="HealthBridge AI Symptom Checker — describe your symptoms and get cautious, informational guidance on possible next steps.">
+
+<!-- Fonts & Icons -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<a href="#mainContent" class="skip-link">Skip to main content</a>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="app">
+  <script>
+    if (localStorage.getItem('healthbridge-sidebar') === 'collapsed' && window.innerWidth > 900) {
+      document.currentScript.parentElement.classList.add('sidebar-collapsed');
+    }
+  </script>
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+    <div class="brand">
+      <div class="brand-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+      <div class="brand-text">
+        <h1>HealthBridge AI</h1>
+        <span>Your AI Health Companion</span>
+      </div>
+    </div>
+
+    <nav class="nav-group">
+      <a href="dashboard.html" class="nav-link"><i class="fa-solid fa-house"></i> Dashboard</a>
+      <a href="chat.html" class="nav-link"><i class="fa-solid fa-comment-medical"></i> Chat Assistant</a>
+      <a href="symptom-checker.html" class="nav-link active" aria-current="page"><i class="fa-solid fa-stethoscope"></i> Symptom Checker</a>
+      <a href="disease-awareness.html" class="nav-link"><i class="fa-solid fa-book-medical"></i> Disease Awareness</a>
+      <a href="vaccination-tracker.html" class="nav-link"><i class="fa-solid fa-syringe"></i> Vaccination Tracker</a>
+      <a href="health-alerts.html" class="nav-link"><i class="fa-solid fa-bell"></i> Health Alerts</a>
+      <a href="emergency-help.html" class="nav-link"><i class="fa-solid fa-phone-volume"></i> Emergency Help</a>
+      <a href="profile.html" class="nav-link"><i class="fa-solid fa-user"></i> Profile</a>
+      <a href="settings.html" class="nav-link"><i class="fa-solid fa-gear"></i> Settings</a>
+    </nav>
+
+    <div class="lang-select-wrap">
+      <i class="fa-solid fa-globe"></i>
+      <select class="lang-select" aria-label="Select language">
+        <option>English</option>
+      </select>
+      <i class="fa-solid fa-chevron-down"></i>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="icon-shield"><i class="fa-solid fa-shield-heart"></i></div>
+      <h4>Your health is our priority</h4>
+      <p>Reliable. Accurate. Always with you.</p>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <div class="main">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="3.5" ry="3.5"></rect>
+          <line x1="9" y1="3" x2="9" y2="21"></line>
+        </svg>
+      </button>
+
+      <div class="topbar-center" style="display: flex; align-items: center; justify-content: center; flex: 1;">
+        <!-- Location moved to Live Surveillance -->
+      </div>
+
+      <div class="topbar-actions">
+        <button class="icon-btn" id="notifBell" aria-label="Notifications">
+          <i class="fa-solid fa-bell"></i>
+          <span class="badge-dot">3</span>
+        </button>
+
+        <button class="theme-toggle" id="themeToggle" role="switch" aria-checked="false" aria-label="Toggle dark mode">
+          <span class="knob">
+            <i class="fa-solid fa-sun icon-sun" aria-hidden="true"></i>
+            <i class="fa-solid fa-moon icon-moon" aria-hidden="true"></i>
+          </span>
+        </button>
+
+        <!-- Auth Unsigned State -->
+        <div id="authUnsigned" style="display: none; align-items: center; gap: 8px;">
+          <button id="btnAuthGuest" style="background: rgba(255,255,255,0.7); border: 1px solid rgba(0,0,0,0.1); padding: 8px 16px; border-radius: 20px; font-weight: 600; font-size: 13px; cursor: pointer; color: var(--text-secondary); transition: all 0.2s;">Guest</button>
+          <button id="btnAuthSignUp" style="background: var(--brand-teal); border: none; padding: 8px 16px; border-radius: 20px; font-weight: 600; font-size: 13px; cursor: pointer; color: white; box-shadow: 0 4px 10px rgba(13,148,136,0.3); transition: all 0.2s;">Sign Up / Login</button>
+        </div>
+
+        <!-- Auth Signed In State -->
+        <div id="authSignedIn" style="display: none; align-items: center; gap: 12px;">
+          <div id="authAccountInfo" style="cursor: pointer; display: flex; align-items: center; gap: 8px; background: rgba(20, 184, 166, 0.1); padding: 4px 14px 4px 4px; border-radius: 30px; border: 1px solid rgba(20, 184, 166, 0.2); transition: all 0.2s;">
+            <div class="avatar" id="authAvatar" role="img" aria-label="User profile" style="width: 28px; height: 28px; font-size: 11.5px; background: var(--brand-teal); color: white;">US</div>
+            <span id="authAccountName" style="font-weight: 600; font-size: 13px; color: var(--text-primary);">User</span>
+          </div>
+          <button id="btnAuthSignOut" aria-label="Sign out" style="background: transparent; border: 1px solid rgba(0,0,0,0.1); width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text-secondary); transition: all 0.2s;">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- PAGE CONTENT -->
+    <main class="page" id="mainContent">
+
+      <div class="page-header sc-page-header">
+        <div>
+          <h2>Symptom Checker</h2>
+          <p>Describe your symptoms and get AI-powered insights and recommendations.</p>
+        </div>
+        <button class="sc-howitworks-btn" id="scHowItWorksBtn" type="button">
+          <i class="fa-regular fa-circle-question"></i> How it works
+        </button>
+      </div>
+
+      <!-- ============ PROGRESS STEPPER ============ -->
+      <div class="panel card reveal sc-stepper-card">
+        <ol class="sc-stepper" id="scStepper" aria-label="Symptom Checker progress">
+          <li class="sc-step" data-step="1">
+            <button type="button" class="sc-step-btn" data-goto="1" aria-current="step">
+              <span class="sc-step-circle">1</span>
+              <span class="sc-step-text">
+                <strong>Describe Symptoms</strong>
+                <small>Tell us what you're experiencing</small>
+              </span>
+            </button>
+          </li>
+          <li class="sc-step-connector" aria-hidden="true"></li>
+          <li class="sc-step" data-step="2">
+            <button type="button" class="sc-step-btn" data-goto="2" disabled>
+              <span class="sc-step-circle">2</span>
+              <span class="sc-step-text">
+                <strong>Additional Details</strong>
+                <small>Help us with more information</small>
+              </span>
+            </button>
+          </li>
+          <li class="sc-step-connector" aria-hidden="true"></li>
+          <li class="sc-step" data-step="3">
+            <button type="button" class="sc-step-btn" data-goto="3" disabled>
+              <span class="sc-step-circle">3</span>
+              <span class="sc-step-text">
+                <strong>Review</strong>
+                <small>Review your information</small>
+              </span>
+            </button>
+          </li>
+          <li class="sc-step-connector" aria-hidden="true"></li>
+          <li class="sc-step" data-step="4">
+            <button type="button" class="sc-step-btn" data-goto="4" disabled>
+              <span class="sc-step-circle">4</span>
+              <span class="sc-step-text">
+                <strong>Results</strong>
+                <small>Get insights and recommendations</small>
+              </span>
+            </button>
+          </li>
+        </ol>
+      </div>
+
+      <div class="sc-layout">
+
+        <!-- ============ MAIN STEP AREA ============ -->
+        <form class="panel card reveal sc-main" id="scForm" novalidate>
+
+          <!-- STEP 1 — DESCRIBE SYMPTOMS -->
+          <section class="sc-step-panel" id="scStep1" data-step-panel="1">
+            <div class="sc-step-heading">
+              <span class="sc-step-heading-icon"><i class="fa-solid fa-clipboard-list"></i></span>
+              <div>
+                <h3>1. Describe Your Symptoms</h3>
+                <p>Tell us what you're experiencing.</p>
+              </div>
+            </div>
+
+            <div class="sc-field">
+              <label for="scDescription">What symptoms are you experiencing?</label>
+              <p class="sc-field-helper">Please describe your symptoms in your own words.</p>
+              <textarea id="scDescription" maxlength="500" rows="4"
+                placeholder="Example: I have a headache, mild fever, and body ache since yesterday…"></textarea>
+              <div class="sc-char-counter"><span id="scCharCount">0</span> / 500</div>
+            </div>
+
+            <div class="sc-field">
+              <label id="scSymptomsLabel">Common Symptoms <span class="sc-field-optional">(Select any that apply)</span></label>
+              <div class="sc-chip-grid" id="scSymptomChips" role="group" aria-labelledby="scSymptomsLabel">
+                <button type="button" class="sc-chip" data-value="Fever"><i class="fa-solid fa-thermometer-half sc-chip-ic sc-ic-red"></i> Fever</button>
+                <button type="button" class="sc-chip" data-value="Headache"><i class="fa-solid fa-brain sc-chip-ic sc-ic-purple"></i> Headache</button>
+                <button type="button" class="sc-chip" data-value="Cough"><i class="fa-solid fa-lungs sc-chip-ic sc-ic-blue"></i> Cough</button>
+                <button type="button" class="sc-chip" data-value="Sore Throat"><i class="fa-solid fa-head-side-cough sc-chip-ic sc-ic-pink"></i> Sore Throat</button>
+                <button type="button" class="sc-chip" data-value="Fatigue"><i class="fa-solid fa-battery-quarter sc-chip-ic sc-ic-green"></i> Fatigue</button>
+                <button type="button" class="sc-chip" data-value="Nausea"><i class="fa-solid fa-face-dizzy sc-chip-ic sc-ic-amber"></i> Nausea</button>
+                <button type="button" class="sc-chip" data-value="Body Ache"><i class="fa-solid fa-bone sc-chip-ic sc-ic-indigo"></i> Body Ache</button>
+                <button type="button" class="sc-chip" data-value="Vomiting"><i class="fa-solid fa-droplet sc-chip-ic sc-ic-orange"></i> Vomiting</button>
+                <button type="button" class="sc-chip" data-value="Diarrhea"><i class="fa-solid fa-virus sc-chip-ic sc-ic-teal"></i> Diarrhea</button>
+                <button type="button" class="sc-chip" data-value="Other"><i class="fa-solid fa-ellipsis sc-chip-ic sc-ic-gray"></i> Other</button>
+              </div>
+            </div>
+
+            <div class="sc-field">
+              <label id="scAreasLabel">Where do you feel the symptoms?</label>
+              <p class="sc-field-helper">Select the body area(s) affected.</p>
+              <div class="sc-chip-grid" id="scBodyAreaChips" role="group" aria-labelledby="scAreasLabel">
+                <button type="button" class="sc-chip" data-value="Head"><i class="fa-solid fa-head-side-virus sc-chip-ic sc-ic-purple"></i> Head</button>
+                <button type="button" class="sc-chip" data-value="Chest"><i class="fa-solid fa-lungs sc-chip-ic sc-ic-blue"></i> Chest</button>
+                <button type="button" class="sc-chip" data-value="Abdomen"><i class="fa-solid fa-person sc-chip-ic sc-ic-amber"></i> Abdomen</button>
+                <button type="button" class="sc-chip" data-value="Back"><i class="fa-solid fa-child-reaching sc-chip-ic sc-ic-indigo"></i> Back</button>
+                <button type="button" class="sc-chip" data-value="Arms"><i class="fa-solid fa-hand sc-chip-ic sc-ic-green"></i> Arms</button>
+                <button type="button" class="sc-chip" data-value="Legs"><i class="fa-solid fa-shoe-prints sc-chip-ic sc-ic-teal"></i> Legs</button>
+                <button type="button" class="sc-chip" data-value="Whole Body"><i class="fa-solid fa-person-rays sc-chip-ic sc-ic-red"></i> Whole Body</button>
+                <button type="button" class="sc-chip" data-value="Other Area"><i class="fa-solid fa-ellipsis sc-chip-ic sc-ic-gray"></i> Other Area</button>
+              </div>
+            </div>
+
+            <p class="sc-field-error" id="scStep1Error" hidden>
+              <i class="fa-solid fa-circle-exclamation"></i> Please describe your symptoms or select at least one symptom to continue.
+            </p>
+
+            <div class="sc-step-actions sc-step-actions-end">
+              <button type="button" class="sc-btn-primary" data-action="next" data-from="1">Next <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+          </section>
+
+          <!-- STEP 2 — ADDITIONAL DETAILS -->
+          <section class="sc-step-panel" id="scStep2" data-step-panel="2" hidden>
+            <div class="sc-step-heading">
+              <span class="sc-step-heading-icon"><i class="fa-solid fa-notes-medical"></i></span>
+              <div>
+                <h3>2. Additional Details</h3>
+                <p>Help HealthBridge understand your symptoms better.</p>
+              </div>
+            </div>
+
+            <div class="sc-field">
+              <label id="scDurationLabel">How long have you had these symptoms?</label>
+              <div class="sc-radio-grid" role="radiogroup" aria-labelledby="scDurationLabel">
+                <label class="sc-radio-card">
+                  <input type="radio" name="scDuration" value="Less than a day">
+                  <span class="sc-radio-check" aria-hidden="true"><i class="fa-solid fa-check"></i></span>
+                  <span>Less than a day</span>
+                </label>
+                <label class="sc-radio-card">
+                  <input type="radio" name="scDuration" value="1–3 days">
+                  <span class="sc-radio-check" aria-hidden="true"><i class="fa-solid fa-check"></i></span>
+                  <span>1–3 days</span>
+                </label>
+                <label class="sc-radio-card">
+                  <input type="radio" name="scDuration" value="4–7 days">
+                  <span class="sc-radio-check" aria-hidden="true"><i class="fa-solid fa-check"></i></span>
+                  <span>4–7 days</span>
+                </label>
+                <label class="sc-radio-card">
+                  <input type="radio" name="scDuration" value="More than a week">
+                  <span class="sc-radio-check" aria-hidden="true"><i class="fa-solid fa-check"></i></span>
+                  <span>More than a week</span>
+                </label>
+                <label class="sc-radio-card">
+                  <input type="radio" name="scDuration" value="More than a month">
+                  <span class="sc-radio-check" aria-hidden="true"><i class="fa-solid fa-check"></i></span>
+                  <span>More than a month</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="sc-field">
+              <label id="scSeverityLabel">How severe are your symptoms?</label>
+              <div class="sc-radio-grid sc-radio-grid-3" role="radiogroup" aria-labelledby="scSeverityLabel">
+                <label class="sc-radio-card">
+                  <input type="radio" name="scSeverity" value="Mild">
+                  <span class="sc-radio-check" aria-hidden="true"><i class="fa-solid fa-check"></i></span>
+                  <span>Mild</span>
+                </label>
+                <label class="sc-radio-card">
+                  <input type="radio" name="scSeverity" value="Moderate">
+                  <span class="sc-radio-check" aria-hidden="true"><i class="fa-solid fa-check"></i></span>
+                  <span>Moderate</span>
+                </label>
+                <label class="sc-radio-card">
+                  <input type="radio" name="scSeverity" value="Severe">
+                  <span class="sc-radio-check" aria-hidden="true"><i class="fa-solid fa-check"></i></span>
+                  <span>Severe</span>
+                </label>
+              </div>
+            </div>
+
+            <p class="sc-field-error" id="scStep2Error" hidden>
+              <i class="fa-solid fa-circle-exclamation"></i> Please select both duration and severity to continue.
+            </p>
+
+            <div class="sc-field-divider"></div>
+
+            <div class="sc-field">
+              <label id="scContextLabel">Additional context <span class="sc-field-optional">(optional)</span></label>
+              <div class="sc-context-grid" aria-labelledby="scContextLabel">
+                <div class="sc-context-item">
+                  <label for="scConditions">Existing health conditions</label>
+                  <input type="text" id="scConditions" placeholder="e.g. Diabetes, asthma…">
+                </div>
+                <div class="sc-context-item">
+                  <label for="scMedications">Current medications</label>
+                  <input type="text" id="scMedications" placeholder="e.g. Paracetamol…">
+                </div>
+                <div class="sc-context-item">
+                  <label for="scExposure">Recent exposure / travel</label>
+                  <input type="text" id="scExposure" placeholder="e.g. Travelled to a flood-affected area…">
+                </div>
+                <div class="sc-context-item">
+                  <label for="scAdditionalInfo">Other important symptoms</label>
+                  <input type="text" id="scAdditionalInfo" placeholder="Anything else worth mentioning…">
+                </div>
+              </div>
+            </div>
+
+            <div class="sc-field-divider"></div>
+
+            <!-- RED-FLAG / SAFETY CHECK -->
+            <div class="sc-field">
+              <label id="scWarningLabel" class="sc-warning-label">
+                <i class="fa-solid fa-triangle-exclamation"></i> Are you experiencing any warning signs?
+              </label>
+              <p class="sc-field-helper">Select any that apply — these need urgent attention.</p>
+              <div class="sc-warning-grid" role="group" aria-labelledby="scWarningLabel">
+                <label class="sc-warning-chip">
+                  <input type="checkbox" value="Severe difficulty breathing">
+                  <span>Severe difficulty breathing</span>
+                </label>
+                <label class="sc-warning-chip">
+                  <input type="checkbox" value="Severe chest pain or pressure">
+                  <span>Severe chest pain or pressure</span>
+                </label>
+                <label class="sc-warning-chip">
+                  <input type="checkbox" value="Loss of consciousness">
+                  <span>Loss of consciousness</span>
+                </label>
+                <label class="sc-warning-chip">
+                  <input type="checkbox" value="Sudden confusion">
+                  <span>Sudden confusion</span>
+                </label>
+                <label class="sc-warning-chip">
+                  <input type="checkbox" value="Severe bleeding">
+                  <span>Severe bleeding</span>
+                </label>
+                <label class="sc-warning-chip">
+                  <input type="checkbox" value="Sudden severe pain">
+                  <span>Sudden severe pain</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Emergency interruption banner (shown only if a warning sign is checked) -->
+            <div class="sc-emergency-banner" id="scEmergencyBanner" hidden role="alert">
+              <div class="sc-emergency-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+              <div class="sc-emergency-body">
+                <h4>You may need urgent medical attention.</h4>
+                <p>If this may be life-threatening, contact emergency services immediately. HealthBridge cannot assess emergencies — please don't wait for an analysis.</p>
+                <a href="tel:112" class="sc-emergency-call"><i class="fa-solid fa-phone-volume"></i> Call Emergency 112</a>
+              </div>
+            </div>
+
+            <div class="sc-step-actions">
+              <button type="button" class="sc-btn-secondary" data-action="back" data-from="2"><i class="fa-solid fa-arrow-left"></i> Back</button>
+              <button type="button" class="sc-btn-primary" data-action="next" data-from="2">Next <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+          </section>
+
+          <!-- STEP 3 — REVIEW -->
+          <section class="sc-step-panel" id="scStep3" data-step-panel="3" hidden>
+            <div class="sc-step-heading">
+              <span class="sc-step-heading-icon"><i class="fa-solid fa-list-check"></i></span>
+              <div>
+                <h3>3. Review Your Information</h3>
+                <p>Make sure everything looks right before we analyze it.</p>
+              </div>
+            </div>
+
+            <div class="sc-review-list" id="scReviewList"><!-- populated by JS --></div>
+
+            <div class="sc-step-actions">
+              <button type="button" class="sc-btn-secondary" data-action="back" data-from="3"><i class="fa-solid fa-arrow-left"></i> Back</button>
+              <button type="button" class="sc-btn-primary" data-action="analyze" id="scAnalyzeBtn">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> Analyze Symptoms
+              </button>
+            </div>
+          </section>
+
+          <!-- STEP 4 — RESULTS -->
+          <section class="sc-step-panel" id="scStep4" data-step-panel="4" hidden>
+            <div class="sc-step-heading">
+              <span class="sc-step-heading-icon"><i class="fa-solid fa-file-waveform"></i></span>
+              <div>
+                <h3>Your HealthBridge Assessment</h3>
+                <p id="scOverallGuidance">Based on the information provided, your symptoms may have several possible causes.</p>
+              </div>
+            </div>
+
+            <div class="sc-field">
+              <label>Possible causes to consider</label>
+              <div class="sc-cause-grid" id="scCauseGrid"><!-- populated by JS --></div>
+              <p style="font-size: 11.5px; color: var(--text-secondary); margin-top: 14px; background: rgba(0,0,0,0.03); padding: 10px; border-radius: var(--r-sm);">
+                <b>Note:</b> These percentages represent how closely the selected symptoms match the available symptom patterns. They are not a medical diagnosis or a clinically validated probability.
+              </p>
+            </div>
+
+            <div class="sc-field">
+              <label>Recommended next step</label>
+              <div class="sc-next-step" id="scNextStep"><!-- populated by JS --></div>
+            </div>
+
+            <div class="sc-field">
+              <label>When to seek medical help</label>
+              <ul class="sc-warning-list">
+                <li>Severe difficulty breathing</li>
+                <li>Severe chest pain or pressure</li>
+                <li>Sudden confusion or unresponsiveness</li>
+                <li>Severe or uncontrolled bleeding</li>
+                <li>Symptoms that suddenly worsen</li>
+              </ul>
+            </div>
+
+            <div class="sc-field">
+              <label>Related HealthBridge actions</label>
+              <div class="sc-related-actions">
+                <a href="#" class="sc-related-btn" data-coming-soon="Nearby Centers"><i class="fa-solid fa-location-dot"></i> Find Nearby Centers</a>
+                <a href="chat.html" class="sc-related-btn"><i class="fa-solid fa-comment-medical"></i> Ask AI Assistant</a>
+                <a href="emergency-help.html" class="sc-related-btn sc-related-btn-danger"><i class="fa-solid fa-phone-volume"></i> Emergency Help</a>
+              </div>
+            </div>
+
+            <p class="sc-disclaimer">
+              HealthBridge provides general health information and guidance. It does not diagnose medical conditions or replace professional medical advice.
+            </p>
+
+            <div class="sc-step-actions sc-step-actions-end">
+              <button type="button" class="sc-btn-secondary" id="scRestartBtn"><i class="fa-solid fa-rotate-left"></i> Check Again</button>
+            </div>
+          </section>
+
+        </form>
+
+        <!-- ============ SIDE INFO ============ -->
+        <aside class="sc-side">
+          <div class="panel card reveal sc-info-card sc-info-teal">
+            <div class="sc-info-icon"><i class="fa-solid fa-shield-heart"></i></div>
+            <h3>About Symptom Checker</h3>
+            <p>HealthBridge looks at what you describe and suggests possible causes and next steps — not a diagnosis.</p>
+            <ul class="sc-info-list">
+              <li><i class="fa-solid fa-circle-check"></i> Symptom-based guidance</li>
+              <li><i class="fa-solid fa-circle-check"></i> Cautious, informational language</li>
+              <li><i class="fa-solid fa-circle-check"></i> Personalized next steps</li>
+              <li><i class="fa-solid fa-circle-check"></i> Clear guidance on when to seek care</li>
+            </ul>
+          </div>
+
+          <div class="panel card reveal sc-info-card sc-info-red">
+            <div class="sc-info-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            <h3>Important Disclaimer</h3>
+            <p>This tool is for informational purposes only and is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of a doctor or other qualified health provider.</p>
+          </div>
+
+          <div class="panel card reveal sc-info-card sc-info-blue">
+            <div class="sc-info-icon"><i class="fa-solid fa-hand-holding-medical"></i></div>
+            <h3>When to Seek Emergency Care</h3>
+            <ul class="sc-info-list sc-info-list-plain">
+              <li>Severe difficulty breathing</li>
+              <li>Chest pain or pressure</li>
+              <li>Sudden confusion</li>
+              <li>Severe bleeding</li>
+              <li>Loss of consciousness</li>
+            </ul>
+            <a href="tel:112" class="sc-emergency-call sc-emergency-call-block"><i class="fa-solid fa-phone-volume"></i> Call Emergency: 112</a>
+          </div>
+        </aside>
+      </div>
+
+      <!-- TIPS BANNER -->
+      <div class="panel card reveal sc-tips-banner">
+        <h4><i class="fa-solid fa-lightbulb"></i> Tips for better results</h4>
+        <div class="sc-tips-grid">
+          <div class="sc-tip"><i class="fa-solid fa-pen"></i> Be specific about your symptoms</div>
+          <div class="sc-tip"><i class="fa-regular fa-clock"></i> Include duration and severity</div>
+          <div class="sc-tip"><i class="fa-solid fa-file-medical"></i> Mention any existing conditions</div>
+          <div class="sc-tip"><i class="fa-solid fa-pills"></i> List medications you're taking</div>
+        </div>
+      </div>
+
+    </main>
+
+    <footer class="footer">
+      © 2026 HealthBridge AI — Smart VIT Hackathon 2026 &nbsp;|&nbsp; An initiative for public health awareness
+    </footer>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="script.js"></script>
+<script>
+(function() {
+  function forceReveal() {
+    document.body.classList.remove('is-loading');
+    document.querySelectorAll('.skeleton-block').forEach(function(e) {
+      e.style.display = 'none';
+      e.hidden = true;
+    });
+    document.querySelectorAll('.real-content').forEach(function(e) {
+      e.style.display = 'block';
+      e.hidden = false;
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', forceReveal);
+  } else {
+    forceReveal();
+  }
+  setTimeout(forceReveal, 100);
+  setTimeout(forceReveal, 500);
+})();
+</script>
+
+</body>
+</html>

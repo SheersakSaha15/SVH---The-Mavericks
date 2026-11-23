@@ -1,0 +1,43 @@
+# National Health Portal (NHP India) Public Health Symptom & Disease Awareness Guide
+
+## Common Health Symptoms & Triage Guidance
+
+### Headache, Nausea, and Vomiting
+- Symptoms of headache, nausea, and vomiting can occur due to viral infections, migraine, dehydration, food poisoning, or vector-borne fevers such as Dengue or Malaria.
+- Home Care & Management:
+  - Stay hydrated by sipping clean water, coconut water, or Oral Rehydration Solution (ORS) slowly.
+  - Rest in a quiet, dark, well-ventilated room.
+  - Avoid heavy, greasy, or spicy foods; consume light foods like banana, rice, apple sauce, and toast (BRAT diet) when vomiting subsides.
+- Emergency Red Flags: Seek urgent hospital care if headache is accompanied by severe neck stiffness, sudden weakness, high fever, continuous inability to keep fluids down for over 24 hours, or confusion.
+
+### Fever and Chills
+- High fever (>100.4°F / 38°C) accompanied by shivering or chills is a primary sign of infections including Dengue, Malaria, Typhoid, Influenza, or Urinary Tract Infection.
+- Management:
+  - Keep room temperature comfortable and wear light cotton clothing.
+  - Apply lukewarm water sponge baths to lower body temperature.
+  - Take Paracetamol as advised by health workers; avoid Aspirin or Ibuprofen during suspected vector-borne fevers like Dengue due to bleeding risk.
+  - Rest and drink plenty of fluids.
+
+### Diarrhea and Watery Stools
+- Frequent loose or watery stools are commonly caused by waterborne pathogens such as Cholera, Rotavirus, or Escherichia coli.
+- Rehydration Protocol:
+  - Mix 1 packet of WHO-formula Oral Rehydration Solution (ORS) in 1 litre of clean, boiled water.
+  - Administer frequent small sips to replace lost water and electrolytes.
+  - Continue zinc supplementation for children under 5 years as recommended by national health guidelines.
+- Red Flags: Blood in stool, sunken eyes, extreme lethargy, or inability to drink fluids.
+
+### Joint Pain, Muscle Ache, and Skin Rash
+- Severe joint pain ("break-bone fever"), muscular weakness, and pinpoint red skin rashes (petechiae) are characteristic features of Dengue and Chikungunya.
+- Clear standing water around homes to eliminate Aedes mosquito breeding. Use mosquito nets and repellents.
+
+### Cough, Breathlessness, and Respiratory Distress
+- Persistent cough, chest tightness, or fever can indicate respiratory infections like Influenza, Pneumonia, or Tuberculosis.
+- Red Flags: Rapid breathing, bluish discoloration of lips/fingers, or severe chest pain require immediate 108 ambulance dispatch.
+
+## Immunization & Vaccine Guidance
+- Universal Immunization Programme (UIP) schedule:
+  - At Birth: BCG, OPV-0, Hepatitis B birth dose.
+  - 6 Weeks: Pentavalent-1, Rotavirus-1, fIPV-1, OPV-1.
+  - 10 Weeks: Pentavalent-2, Rotavirus-2, OPV-2.
+  - 14 Weeks: Pentavalent-3, Rotavirus-3, fIPV-2, OPV-3.
+  - 9 Months: MR-1 (Measles & Rubella), PCV booster, Japanese Encephalitis-1 (in endemic districts).

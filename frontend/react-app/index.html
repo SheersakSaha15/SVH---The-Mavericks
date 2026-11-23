@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HealthBridge AI — Dashboard</title>
+<meta name="description" content="HealthBridge AI — AI-powered public health dashboard for disease awareness, outbreak alerts, and vaccination tracking.">
+
+<!-- Fonts & Icons -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body >
+
+<a href="#mainContent" class="skip-link">Skip to main content</a>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="app">
+  <script>
+    if (localStorage.getItem('healthbridge-sidebar') === 'collapsed' && window.innerWidth > 900) {
+      document.currentScript.parentElement.classList.add('sidebar-collapsed');
+    }
+  </script>
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+    <div class="brand">
+      <div class="brand-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+      <div class="brand-text">
+        <h1>HealthBridge AI</h1>
+        <span>Your AI Health Companion</span>
+      </div>
+    </div>
+
+    <nav class="nav-group">
+      <a href="dashboard.html" class="nav-link active" aria-current="page"><i class="fa-solid fa-house"></i> Dashboard</a>
+      <a href="chat.html" class="nav-link"><i class="fa-solid fa-comment-medical"></i> Chat Assistant</a>
+      <a href="symptom-checker.html" class="nav-link"><i class="fa-solid fa-stethoscope"></i> Symptom Checker</a>
+      <a href="disease-awareness.html" class="nav-link"><i class="fa-solid fa-book-medical"></i> Disease Awareness</a>
+      <a href="vaccination-tracker.html" class="nav-link"><i class="fa-solid fa-syringe"></i> Vaccination Tracker</a>
+      <a href="health-alerts.html" class="nav-link"><i class="fa-solid fa-bell"></i> Health Alerts</a>
+      <a href="emergency-help.html" class="nav-link"><i class="fa-solid fa-phone-volume"></i> Emergency Help</a>
+      <a href="profile.html" class="nav-link"><i class="fa-solid fa-user"></i> Profile</a>
+      <a href="settings.html" class="nav-link"><i class="fa-solid fa-gear"></i> Settings</a>
+    </nav>
+
+    <div class="lang-select-wrap">
+      <i class="fa-solid fa-globe"></i>
+      <select class="lang-select" aria-label="Select language">
+        <option>English</option>
+      </select>
+      <i class="fa-solid fa-chevron-down"></i>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="icon-shield"><i class="fa-solid fa-shield-heart"></i></div>
+      <h4>Your health is our priority</h4>
+      <p>Reliable. Accurate. Always with you.</p>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <div class="main">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="3.5" ry="3.5"></rect>
+          <line x1="9" y1="3" x2="9" y2="21"></line>
+        </svg>
+      </button>
+
+      <div class="topbar-center" style="display: flex; align-items: center; justify-content: center; flex: 1;">
+        <!-- Location moved to Live Surveillance -->
+      </div>
+
+      <div class="topbar-actions">
+        <button class="icon-btn" id="notifBell" aria-label="Notifications">
+          <i class="fa-solid fa-bell"></i>
+          <span class="badge-dot">3</span>
+        </button>
+
+        <button class="theme-toggle" id="themeToggle" role="switch" aria-checked="false" aria-label="Toggle dark mode">
+          <span class="knob">
+            <i class="fa-solid fa-sun icon-sun" aria-hidden="true"></i>
+            <i class="fa-solid fa-moon icon-moon" aria-hidden="true"></i>
+          </span>
+        </button>
+
+        <!-- Auth Unsigned State -->
+        <div id="authUnsigned" style="display: none; align-items: center; gap: 8px;">
+          <button id="btnAuthGuest" style="background: rgba(255,255,255,0.7); border: 1px solid rgba(0,0,0,0.1); padding: 8px 16px; border-radius: 20px; font-weight: 600; font-size: 13px; cursor: pointer; color: var(--text-secondary); transition: all 0.2s;">Guest</button>
+          <button id="btnAuthSignUp" style="background: var(--brand-teal); border: none; padding: 8px 16px; border-radius: 20px; font-weight: 600; font-size: 13px; cursor: pointer; color: white; box-shadow: 0 4px 10px rgba(13,148,136,0.3); transition: all 0.2s;">Sign Up / Login</button>
+        </div>
+
+        <!-- Auth Signed In State -->
+        <div id="authSignedIn" style="display: none; align-items: center; gap: 12px;">
+          <div id="authAccountInfo" style="cursor: pointer; display: flex; align-items: center; gap: 8px; background: rgba(20, 184, 166, 0.1); padding: 4px 14px 4px 4px; border-radius: 30px; border: 1px solid rgba(20, 184, 166, 0.2); transition: all 0.2s;">
+            <div class="avatar" id="authAvatar" role="img" aria-label="User profile" style="width: 28px; height: 28px; font-size: 11.5px; background: var(--brand-teal); color: white;">US</div>
+            <span id="authAccountName" style="font-weight: 600; font-size: 13px; color: var(--text-primary);">User</span>
+          </div>
+          <button id="btnAuthSignOut" aria-label="Sign out" style="background: transparent; border: 1px solid rgba(0,0,0,0.1); width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text-secondary); transition: all 0.2s;">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- PAGE CONTENT -->
+    <main class="page" id="mainContent">
+
+      <div class="page-header">
+        <h2><span class="welcome-emoji">👋</span> Namaste!</h2>
+        <p>How can I help you with your health today?</p>
+      </div>
+
+      <!-- STAT CARDS -->
+      <section class="stat-grid skel-grid skeleton-block" aria-hidden="true" role="status" aria-label="Loading your health summary">
+        <div class="card skel-stat-card"><div class="skel skel-circle"></div><div class="skel-lines"><div class="skel skel-line lg w-40"></div><div class="skel skel-line w-60"></div></div></div>
+        <div class="card skel-stat-card"><div class="skel skel-circle"></div><div class="skel-lines"><div class="skel skel-line lg w-40"></div><div class="skel skel-line w-60"></div></div></div>
+        <div class="card skel-stat-card"><div class="skel skel-circle"></div><div class="skel-lines"><div class="skel skel-line lg w-40"></div><div class="skel skel-line w-60"></div></div></div>
+        <div class="card skel-stat-card"><div class="skel skel-circle"></div><div class="skel-lines"><div class="skel skel-line lg w-40"></div><div class="skel skel-line w-60"></div></div></div>
+      </section>
+      <section class="stat-grid real-content" hidden>
+        <div class="card reveal stat-card">
+          <div class="stat-icon blue"><i class="fa-solid fa-book-open-reader"></i></div>
+          <div class="stat-info">
+            <h3 class="count-up" data-target="12">0</h3>
+            <p class="stat-label">Health Tips</p>
+            <p class="stat-sub">New tips today</p>
+          </div>
+        </div>
+        <div class="card reveal stat-card">
+          <div class="stat-icon red"><i class="fa-solid fa-triangle-exclamation"></i></div>
+          <div class="stat-info">
+            <h3 class="count-up" data-target="3">0</h3>
+            <p class="stat-label">Active Alerts</p>
+            <p class="stat-sub">In your district</p>
+          </div>
+        </div>
+        <div class="card reveal stat-card">
+          <div class="stat-icon green"><i class="fa-solid fa-syringe"></i></div>
+          <div class="stat-info">
+            <h3 class="count-up" data-target="2">0</h3>
+            <p class="stat-label">Vaccines Due</p>
+            <p class="stat-sub">This month</p>
+          </div>
+        </div>
+        <a href="profile.html" class="card reveal stat-card" style="text-decoration:none; color:inherit;">
+          <div class="stat-icon purple" style="background:var(--brand-teal-light); color:#fff;"><i class="fa-solid fa-user"></i></div>
+          <div class="stat-info">
+            <h3 class="count-up" data-target="0" data-suffix="%" id="dashProfilePct">0%</h3>
+            <p class="stat-label">Health Profile</p>
+            <p class="stat-sub">Profile Complete</p>
+          </div>
+        </a>
+      </section>
+
+      <!-- ============ LIVE DISEASE SURVEILLANCE (feature preview) — skeleton ============ -->
+      <div class="feature-preview card skel-fp skeleton-block" aria-hidden="true" role="status" aria-label="Loading feature preview">
+        <div class="skel skel-block tall"></div>
+        <div class="skel skel-line w-80"></div>
+        <div class="skel skel-line w-60"></div>
+        <div class="skel-badges">
+          <div class="skel skel-block"></div><div class="skel skel-block"></div><div class="skel skel-block"></div>
+          <div class="skel skel-block"></div><div class="skel skel-block"></div><div class="skel skel-block"></div>
+        </div>
+      </div>
+
+      <!-- ============ LIVE DISEASE SURVEILLANCE (feature preview) ============ -->
+      <section class="feature-preview reveal card real-content" id="surveillancePreview" aria-labelledby="fpTitle" hidden>
+        <div class="fp-head">
+          <div>
+            <h3 id="fpTitle"><span aria-hidden="true">🛰️</span> Live Disease Surveillance</h3>
+            <p class="fp-subtitle">Real-time district-level disease.</p>
+          </div>
+          <span class="fp-status-badge"><span class="fp-status-dot"></span> Coming Soon</span>
+        </div>
+
+        <p class="fp-description">
+        </p>
+
+        <div class="fp-illustration" aria-hidden="true">
+          <svg viewBox="0 0 300 190" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="fpGlobeGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#14b8a6"/>
+                <stop offset="100%" stop-color="#10b981"/>
+              </linearGradient>
+            </defs>
+            <!-- backdrop glow -->
+            <circle cx="150" cy="95" r="70" fill="url(#fpGlobeGrad)" opacity="0.10"/>
+            <!-- globe -->
+            <circle cx="150" cy="95" r="46" fill="none" stroke="url(#fpGlobeGrad)" stroke-width="2.5" opacity="0.55"/>
+            <ellipse cx="150" cy="95" rx="46" ry="18" fill="none" stroke="url(#fpGlobeGrad)" stroke-width="1.5" opacity="0.4"/>
+            <ellipse cx="150" cy="95" rx="18" ry="46" fill="none" stroke="url(#fpGlobeGrad)" stroke-width="1.5" opacity="0.4"/>
+            <!-- orbit ring with satellite -->
+            <g class="fp-orbit">
+              <ellipse cx="150" cy="95" rx="90" ry="34" fill="none" stroke="var(--border)" stroke-width="1.5" stroke-dasharray="4 5"/>
+              <g class="fp-sat">
+                <circle cx="240" cy="95" r="6" fill="url(#fpGlobeGrad)"/>
+                <rect x="228" y="91" width="8" height="8" rx="1.5" fill="var(--brand-teal-dark)"/>
+                <rect x="244" y="91" width="8" height="8" rx="1.5" fill="var(--brand-teal-dark)"/>
+              </g>
+            </g>
+            <!-- pulse markers on globe -->
+            <circle cx="130" cy="78" r="3.5" fill="#ef4444"/>
+            <circle cx="130" cy="78" r="3.5" fill="#ef4444" opacity="0.5">
+              <animate attributeName="r" values="3.5;12;3.5" dur="2.4s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.5;0;0.5" dur="2.4s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="168" cy="110" r="3" fill="#f59e0b"/>
+            <circle cx="168" cy="110" r="3" fill="#f59e0b" opacity="0.5">
+              <animate attributeName="r" values="3;10;3" dur="2.8s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.5;0;0.5" dur="2.8s" repeatCount="indefinite"/>
+            </circle>
+          </svg>
+        </div>
+
+        
+
+        <div class="fp-footer">
+          <div class="fp-launch">
+            <span>Expected Launch</span>
+            <strong>Version 2.0</strong>
+          </div>
+          
+        </div>
+      </section>
+
+      <!-- RECENT ALERTS -->
+      <section class="panel card reveal" style="margin-bottom:18px;">
+        <div class="panel-head">
+          <h3>Recent Alerts</h3>
+          <a href="#" class="link-btn" data-coming-soon="Health Alerts">View all</a>
+        </div>
+
+        <!-- Skeleton -->
+        <div class="alert-list skeleton-block" aria-hidden="true" role="status" aria-label="Loading recent alerts">
+          <div class="skel-list-item"><div class="skel skel-circle"></div><div class="skel-lines"><div class="skel skel-line w-60"></div><div class="skel skel-line sm w-40"></div></div></div>
+          <div class="skel-list-item"><div class="skel skel-circle"></div><div class="skel-lines"><div class="skel skel-line w-60"></div><div class="skel skel-line sm w-40"></div></div></div>
+          <div class="skel-list-item"><div class="skel skel-circle"></div><div class="skel-lines"><div class="skel skel-line w-60"></div><div class="skel skel-line sm w-40"></div></div></div>
+        </div>
+
+        <!-- Real content -->
+        <div class="alert-list real-content" id="alertList" hidden>
+          <div class="alert-item">
+            <div class="alert-icon high"><i class="fa-solid fa-triangle-exclamation"></i></div>
+
+            <div class="alert-body">
+              <h4>Dengue Outbreak</h4>
+              <p>Khordha District</p>
+            </div>
+            <div class="alert-meta">
+              <span class="alert-tag high">High</span>
+              <span class="alert-time">2h ago</span>
+            </div>
+          </div>
+          <div class="alert-item">
+            <div class="alert-icon medium"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            <div class="alert-body">
+              <h4>Cholera Warning</h4>
+              <p>Ganjam District</p>
+            </div>
+            <div class="alert-meta">
+              <span class="alert-tag medium">Medium</span>
+              <span class="alert-time">5h ago</span>
+            </div>
+          </div>
+          <div class="alert-item">
+            <div class="alert-icon low"><i class="fa-solid fa-location-dot"></i></div>
+            <div class="alert-body">
+              <h4>Malaria Cases Rising</h4>
+              <p>Mayurbhanj District</p>
+            </div>
+            <div class="alert-meta">
+              <span class="alert-tag low">Low</span>
+              <span class="alert-time">1d ago</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Empty state (shown by script.js if there are ever zero alerts) -->
+        <div class="empty-state" id="alertsEmptyState" hidden>
+          <div class="empty-icon"><i class="fa-solid fa-bell-slash"></i></div>
+          <h4>No Health Alerts</h4>
+          <p>You're all caught up. Check again later.</p>
+          <button class="empty-action" id="alertsRefreshBtn" type="button"><i class="fa-solid fa-rotate-right"></i> Refresh</button>
+        </div>
+      </section>
+
+      <!-- QUICK ACCESS -->
+      <section class="panel card reveal" style="margin-bottom:18px;">
+        <div class="panel-head">
+          <h3>Quick Access</h3>
+        </div>
+        <div class="quick-access-grid skeleton-block" aria-hidden="true" role="status" aria-label="Loading quick access">
+          <div class="skel-quick-item"><div class="skel skel-circle"></div><div class="skel skel-line"></div></div>
+          <div class="skel-quick-item"><div class="skel skel-circle"></div><div class="skel skel-line"></div></div>
+          <div class="skel-quick-item"><div class="skel skel-circle"></div><div class="skel skel-line"></div></div>
+          <div class="skel-quick-item"><div class="skel skel-circle"></div><div class="skel skel-line"></div></div>
+          <div class="skel-quick-item"><div class="skel skel-circle"></div><div class="skel skel-line"></div></div>
+          <div class="skel-quick-item"><div class="skel skel-circle"></div><div class="skel skel-line"></div></div>
+        </div>
+        <div class="quick-access-grid real-content" hidden>
+          <a href="chat.html" class="quick-item">
+            <i class="fa-solid fa-comment-medical"></i>
+            <span>Ask Questions</span>
+            <i class="fa-solid fa-arrow-right qi-arrow" aria-hidden="true"></i>
+          </a>
+          <a href="symptom-checker.html" class="quick-item">
+            <i class="fa-solid fa-heart-pulse"></i>
+            <span>Symptom Checker</span>
+            <i class="fa-solid fa-arrow-right qi-arrow" aria-hidden="true"></i>
+          </a>
+          <a href="#" class="quick-item" data-coming-soon="Disease Awareness">
+            <i class="fa-solid fa-book-medical"></i>
+            <span>Disease Awareness</span>
+            <i class="fa-solid fa-arrow-right qi-arrow" aria-hidden="true"></i>
+          </a>
+          <a href="#" class="quick-item" data-coming-soon="Vaccination Schedule">
+            <i class="fa-solid fa-syringe"></i>
+            <span>Vaccination Schedule</span>
+            <i class="fa-solid fa-arrow-right qi-arrow" aria-hidden="true"></i>
+          </a>
+          <a href="emergency-help.html" class="quick-item">
+            <i class="fa-solid fa-phone-volume"></i>
+            <span>Emergency Help</span>
+            <i class="fa-solid fa-arrow-right qi-arrow" aria-hidden="true"></i>
+          </a>
+          <a href="#" class="quick-item" data-coming-soon="Health Tips">
+            <i class="fa-solid fa-lightbulb"></i>
+            <span>Health Tips</span>
+            <i class="fa-solid fa-arrow-right qi-arrow" aria-hidden="true"></i>
+          </a>
+        </div>
+      </section>
+
+      <!-- TIP + VACCINES — skeleton -->
+      <section class="grid-2col-b skeleton-block" aria-hidden="true" role="status" aria-label="Loading tip and vaccine schedule">
+        <div class="panel card tip-card">
+          <div class="skel skel-circle" style="width:56px;height:56px;border-radius:var(--r-md);"></div>
+          <div style="flex:1;"><div class="skel skel-line w-40" style="margin-bottom:10px;"></div><div class="skel skel-line w-80"></div></div>
+        </div>
+        <div class="panel card">
+          <div class="skel skel-line w-40" style="margin-bottom:16px;"></div>
+          <div class="skel-list-item" style="margin-bottom:11px;"><div class="skel skel-circle"></div><div class="skel-lines"><div class="skel skel-line w-60"></div><div class="skel skel-line sm w-40"></div></div></div>
+          <div class="skel-list-item"><div class="skel skel-circle"></div><div class="skel-lines"><div class="skel skel-line w-60"></div><div class="skel skel-line sm w-40"></div></div></div>
+        </div>
+      </section>
+
+      <!-- TIP + VACCINES -->
+      <section class="grid-2col-b real-content" hidden>
+        <div class="panel card reveal tip-card">
+          <div class="tip-icon"><i class="fa-solid fa-droplet"></i></div>
+          <div>
+            <div class="panel-head" style="margin-bottom:6px;">
+              <h3 style="font-size:14.5px;">Daily Health Tip</h3>
+              <span class="new-pill">New</span>
+            </div>
+            <p>Drink plenty of clean water and stay hydrated. It keeps your body healthy and strong.</p>
+          </div>
+        </div>
+
+        <div class="panel card reveal">
+          <div class="panel-head">
+            <h3>Upcoming Vaccines</h3>
+            <a href="#" class="link-btn" data-coming-soon="Vaccination">View all</a>
+          </div>
+          <div class="vaccine-list" id="vaccineList">
+            <div class="vaccine-item">
+              <div class="vaccine-icon"><i class="fa-solid fa-syringe"></i></div>
+              <div>
+                <h4>Pentavalent (3rd Dose)</h4>
+                <p>Due in 15 days</p>
+              </div>
+              <i class="fa-solid fa-user"></i>
+            </div>
+            <div class="vaccine-item">
+              <div class="vaccine-icon"><i class="fa-solid fa-syringe"></i></div>
+              <div>
+                <h4>Rotavirus (2nd Dose)</h4>
+                <p>Due in 20 days</p>
+              </div>
+              <i class="fa-solid fa-user"></i>
+            </div>
+          </div>
+          <div class="empty-state" id="vaccinesEmptyState" hidden>
+            <div class="empty-icon"><i class="fa-solid fa-syringe"></i></div>
+            <h4>No Upcoming Vaccines</h4>
+            <p>Nothing due right now. We'll remind you closer to the date.</p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="footer">
+      © 2026 HealthBridge AI — Smart VIT Hackathon 2026 &nbsp;|&nbsp; An initiative for public health awareness
+    </footer>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="script.js"></script>
+<script>
+(function() {
+  function forceReveal() {
+    document.body.classList.remove('is-loading');
+    document.querySelectorAll('.skeleton-block').forEach(function(e) {
+      e.style.display = 'none';
+      e.hidden = true;
+    });
+    document.querySelectorAll('.real-content').forEach(function(e) {
+      e.style.display = 'block';
+      e.hidden = false;
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', forceReveal);
+  } else {
+    forceReveal();
+  }
+  setTimeout(forceReveal, 100);
+  setTimeout(forceReveal, 500);
+})();
+</script>
+
+</body>
+</html>

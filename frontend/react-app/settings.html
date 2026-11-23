@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Settings · HealthBridge AI</title>
+<meta name="description" content="HealthBridge AI Settings — manage your preferences, privacy, appearance, and account settings.">
+
+<!-- Fonts & Icons -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="settings.css">
+</head>
+<body>
+
+<a href="#mainContent" class="skip-link">Skip to main content</a>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="app">
+  <script>
+    if (localStorage.getItem('healthbridge-sidebar') === 'collapsed' && window.innerWidth > 900) {
+      document.currentScript.parentElement.classList.add('sidebar-collapsed');
+    }
+  </script>
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+    <div class="brand">
+      <div class="brand-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+      <div class="brand-text">
+        <h1>HealthBridge AI</h1>
+        <span>Your AI Health Companion</span>
+      </div>
+    </div>
+
+    <nav class="nav-group">
+      <a href="dashboard.html" class="nav-link"><i class="fa-solid fa-house"></i> Dashboard</a>
+      <a href="chat.html" class="nav-link"><i class="fa-solid fa-comment-medical"></i> AI Chat Assistant</a>
+      <a href="symptom-checker.html" class="nav-link"><i class="fa-solid fa-stethoscope"></i> Symptom Checker</a>
+      <a href="disease-awareness.html" class="nav-link"><i class="fa-solid fa-book-medical"></i> Disease Awareness</a>
+      <a href="vaccination-tracker.html" class="nav-link"><i class="fa-solid fa-syringe"></i> Vaccination Tracker</a>
+      <a href="health-alerts.html" class="nav-link"><i class="fa-solid fa-bell"></i> Health Alerts</a>
+      <a href="emergency-help.html" class="nav-link"><i class="fa-solid fa-phone-volume"></i> Emergency Help</a>
+      <a href="profile.html" class="nav-link"><i class="fa-solid fa-user"></i> Profile</a>
+      <a href="settings.html" class="nav-link active" aria-current="page"><i class="fa-solid fa-gear"></i> Settings</a>
+    </nav>
+
+    <!-- User Card -->
+    <div class="st-user-card" id="stSidebarUserCard" onclick="window.location='profile.html'">
+      <div class="st-user-avatar" id="stNavAvatar">PC</div>
+      <div class="st-user-info">
+        <h4 id="stNavUserName">Parth Chouhan</h4>
+        <p>View Profile</p>
+      </div>
+      <i class="fa-solid fa-chevron-right st-user-arrow"></i>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <div class="main">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="3.5" ry="3.5"></rect>
+          <line x1="9" y1="3" x2="9" y2="21"></line>
+        </svg>
+      </button>
+
+      <div class="topbar-center" style="display: flex; align-items: center; justify-content: center; flex: 1;">
+        <!-- Location moved to Live Surveillance -->
+      </div>
+
+      <div class="topbar-actions">
+        <button class="icon-btn" id="notifBell" aria-label="Notifications">
+          <i class="fa-solid fa-bell"></i>
+          <span class="badge-dot">3</span>
+        </button>
+
+        <button class="theme-toggle" id="themeToggle" role="switch" aria-checked="false" aria-label="Toggle dark mode">
+          <span class="knob">
+            <i class="fa-solid fa-sun icon-sun" aria-hidden="true"></i>
+            <i class="fa-solid fa-moon icon-moon" aria-hidden="true"></i>
+          </span>
+        </button>
+
+        <!-- Auth Unsigned State -->
+        <div id="authUnsigned" style="display: none; align-items: center; gap: 8px;">
+          <button id="btnAuthGuest" style="background: rgba(255,255,255,0.7); border: 1px solid rgba(0,0,0,0.1); padding: 8px 16px; border-radius: 20px; font-weight: 600; font-size: 13px; cursor: pointer; color: var(--text-secondary); transition: all 0.2s;">Guest</button>
+          <button id="btnAuthSignUp" style="background: var(--brand-teal); border: none; padding: 8px 16px; border-radius: 20px; font-weight: 600; font-size: 13px; cursor: pointer; color: white; box-shadow: 0 4px 10px rgba(13,148,136,0.3); transition: all 0.2s;">Sign Up / Login</button>
+        </div>
+
+        <!-- Auth Signed In State -->
+        <div id="authSignedIn" style="display: none; align-items: center; gap: 12px;">
+          <div id="authAccountInfo" style="cursor: pointer; display: flex; align-items: center; gap: 8px; background: rgba(20, 184, 166, 0.1); padding: 4px 14px 4px 4px; border-radius: 30px; border: 1px solid rgba(20, 184, 166, 0.2); transition: all 0.2s;">
+            <div class="avatar" id="authAvatar" role="img" aria-label="User profile" style="width: 28px; height: 28px; font-size: 11.5px; background: var(--brand-teal); color: white;">US</div>
+            <span id="authAccountName" style="font-weight: 600; font-size: 13px; color: var(--text-primary);">User</span>
+          </div>
+          <button id="btnAuthSignOut" aria-label="Sign out" style="background: transparent; border: 1px solid rgba(0,0,0,0.1); width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text-secondary); transition: all 0.2s;">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- PAGE CONTENT -->
+    <main class="page" id="mainContent">
+
+      <!-- Header + Search -->
+      <div class="st-header-bar">
+        <div class="page-header" style="margin-bottom:0;">
+          <h2>Settings</h2>
+          <p>Manage your preferences and account settings</p>
+        </div>
+        <div class="st-search-wrap">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="stSearchInput" placeholder="Search settings…" aria-label="Search settings" autocomplete="off">
+          <button type="button" id="stSearchClear" class="st-search-clear" aria-label="Clear search"><i class="fa-solid fa-xmark"></i></button>
+          
+          <!-- Search Results Overlay Dropdown -->
+          <div class="st-search-results-panel" id="stSearchResults" style="display:none;"></div>
+        </div>
+      </div>
+
+      <!-- Settings Layout -->
+      <div class="st-layout">
+
+        <!-- Left: Category Nav -->
+        <div class="st-categories" id="stCategoriesNav">
+          <button class="st-cat-btn st-cat-active" data-cat="general">
+            <i class="fa-solid fa-gear"></i> <span>General</span>
+          </button>
+          <button class="st-cat-btn" data-cat="notifications">
+            <i class="fa-solid fa-bell"></i> <span>Notifications</span>
+          </button>
+          <button class="st-cat-btn" data-cat="privacy">
+            <i class="fa-solid fa-shield-halved"></i> <span>Privacy & Security</span>
+          </button>
+          <button class="st-cat-btn" data-cat="healthData">
+            <i class="fa-solid fa-heart-pulse"></i> <span>Health Data</span>
+          </button>
+          <button class="st-cat-btn" data-cat="appearance">
+            <i class="fa-solid fa-palette"></i> <span>Appearance</span>
+          </button>
+          <button class="st-cat-btn" data-cat="accessibility">
+            <i class="fa-solid fa-universal-access"></i> <span>Accessibility</span>
+          </button>
+          <button class="st-cat-btn" data-cat="account">
+            <i class="fa-solid fa-user-gear"></i> <span>Account</span>
+          </button>
+          <button class="st-cat-btn" data-cat="help">
+            <i class="fa-solid fa-circle-question"></i> <span>Help & Support</span>
+          </button>
+        </div>
+
+        <!-- Center: Main Panel -->
+        <div class="st-panel" id="stPanel">
+          <!-- JS renders content here -->
+        </div>
+
+        <!-- Right: Privacy & Security Card -->
+        <div class="st-privacy-card">
+          <div class="st-privacy-shield">
+            <i class="fa-solid fa-shield-halved"></i>
+          </div>
+          <h3>Privacy & Security</h3>
+          <p>Your health data is private and secure with us.</p>
+
+          <div class="st-privacy-list">
+            <div class="st-privacy-item">
+              <div class="st-privacy-item-icon st-pi-green"><i class="fa-solid fa-circle-check"></i></div>
+              <div>
+                <h4>Your data is safe</h4>
+                <p>We use industry-standard encryption to keep your information secure.</p>
+              </div>
+            </div>
+            <div class="st-privacy-item">
+              <div class="st-privacy-item-icon st-pi-blue"><i class="fa-solid fa-users"></i></div>
+              <div>
+                <h4>You're in control</h4>
+                <p>Manage what data you share and who can access it.</p>
+              </div>
+            </div>
+            <div class="st-privacy-item">
+              <div class="st-privacy-item-icon st-pi-purple"><i class="fa-solid fa-eye"></i></div>
+              <div>
+                <h4>Transparency first</h4>
+                <p>We're transparent about how we collect and use your data.</p>
+              </div>
+            </div>
+          </div>
+
+          <button class="st-learn-more-btn" id="stPrivacyLearnMore">
+            Learn More <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Danger Zone -->
+      <div class="st-danger-zone" id="stDangerZoneBanner">
+        <div class="st-danger-icon"><i class="fa-solid fa-trash-can"></i></div>
+        <div style="flex:1;">
+          <h4>Danger Zone</h4>
+          <p>Irreversible and sensitive actions for your account.</p>
+        </div>
+        <i class="fa-solid fa-chevron-right st-item-arrow"></i>
+      </div>
+
+    </main>
+
+    <footer class="footer">
+      © 2026 HealthBridge AI — Smart VIT Hackathon 2026 &nbsp;|&nbsp; An initiative for public health awareness
+    </footer>
+  </div>
+</div>
+
+<!-- ============ PROFILE MODAL ============ -->
+<div class="st-modal-overlay" id="stProfileModal">
+  <div class="st-modal">
+    <div class="st-modal-header">
+      <h3><i class="fa-solid fa-user-pen" style="color:var(--brand-teal);margin-right:8px;"></i> Edit Profile</h3>
+      <button class="st-modal-close" data-close-modal="profile" aria-label="Close modal"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="st-modal-body">
+      <div class="st-form-group">
+        <label for="stPfName">Full Name</label>
+        <input type="text" class="st-form-input" id="stPfName" placeholder="Enter your full name">
+      </div>
+      <div class="st-form-group">
+        <label for="stPfEmail">Email Address</label>
+        <input type="email" class="st-form-input" id="stPfEmail" placeholder="Enter your email">
+      </div>
+      <div class="st-form-group">
+        <label for="stPfPhone">Phone Number</label>
+        <input type="tel" class="st-form-input" id="stPfPhone" placeholder="Enter your phone number">
+      </div>
+      <div class="st-form-group" style="margin-bottom:0;">
+        <label for="stPfLocation">Location</label>
+        <input type="text" class="st-form-input" id="stPfLocation" placeholder="Enter your location">
+      </div>
+    </div>
+    <div class="st-modal-actions">
+      <button class="st-modal-cancel" data-close-modal="profile">Cancel</button>
+      <button class="st-modal-save" id="stProfileSave"><i class="fa-solid fa-check"></i> Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ DASHBOARD PREFERENCES MODAL ============ -->
+<div class="st-modal-overlay" id="stDashModal">
+  <div class="st-modal">
+    <div class="st-modal-header">
+      <h3><i class="fa-solid fa-table-columns" style="color:var(--brand-teal);margin-right:8px;"></i> Dashboard Preferences</h3>
+      <button class="st-modal-close" data-close-modal="dash" aria-label="Close modal"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="st-modal-body">
+      <p style="font-size:13px;color:var(--text-secondary);margin-bottom:16px;">Customize which widgets appear on your main dashboard.</p>
+      <div class="st-modal-toggle-list">
+        <div class="st-modal-toggle-item">
+          <div>
+            <h4>Show Daily Health Tip</h4>
+            <p>Display daily wellness tips and health recommendations</p>
+          </div>
+          <div class="st-toggle" id="stTogDashTip" data-key="healthbridge_settings_dash_tip"></div>
+        </div>
+        <div class="st-modal-toggle-item">
+          <div>
+            <h4>Show Health Alerts</h4>
+            <p>Display real-time disease outbreak and health advisories</p>
+          </div>
+          <div class="st-toggle" id="stTogDashAlerts" data-key="healthbridge_settings_dash_alerts"></div>
+        </div>
+        <div class="st-modal-toggle-item">
+          <div>
+            <h4>Show Vaccination Summary</h4>
+            <p>Display upcoming and completed vaccination status</p>
+          </div>
+          <div class="st-toggle" id="stTogDashVac" data-key="healthbridge_settings_dash_vac"></div>
+        </div>
+        <div class="st-modal-toggle-item" style="border-bottom:none;">
+          <div>
+            <h4>Show Disease Awareness</h4>
+            <p>Display featured health awareness guides and prevention information</p>
+          </div>
+          <div class="st-toggle" id="stTogDashDisease" data-key="healthbridge_settings_dash_disease"></div>
+        </div>
+      </div>
+    </div>
+    <div class="st-modal-actions">
+      <button class="st-modal-save" data-close-modal="dash"><i class="fa-solid fa-check"></i> Done</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ REMINDERS & PREFERENCES MODAL ============ -->
+<div class="st-modal-overlay" id="stRemindersModal">
+  <div class="st-modal">
+    <div class="st-modal-header">
+      <h3><i class="fa-solid fa-clock" style="color:var(--brand-teal);margin-right:8px;"></i> Health Reminder Preferences</h3>
+      <button class="st-modal-close" data-close-modal="reminders" aria-label="Close modal"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="st-modal-body">
+      <p style="font-size:13px;color:var(--text-secondary);margin-bottom:16px;">Configure your automatic health and wellness reminders.</p>
+      <div class="st-modal-toggle-list">
+        <div class="st-modal-toggle-item">
+          <div>
+            <h4>Daily Health Tips</h4>
+            <p>Receive daily morning health advice notifications</p>
+          </div>
+          <div class="st-toggle" id="stTogRemindTips" data-key="healthbridge_settings_remind_tips"></div>
+        </div>
+        <div class="st-modal-toggle-item">
+          <div>
+            <h4>Vaccination Reminders</h4>
+            <p>Receive alerts for scheduled immunizations and boosters</p>
+          </div>
+          <div class="st-toggle" id="stTogRemindVac" data-key="healthbridge_settings_remind_vac"></div>
+        </div>
+        <div class="st-modal-toggle-item" style="border-bottom:none;">
+          <div>
+            <h4>Health Alerts</h4>
+            <p>Receive instant notifications for regional outbreak alerts</p>
+          </div>
+          <div class="st-toggle" id="stTogRemindAlerts" data-key="healthbridge_settings_remind_alerts"></div>
+        </div>
+      </div>
+    </div>
+    <div class="st-modal-actions">
+      <button class="st-modal-save" data-close-modal="reminders"><i class="fa-solid fa-check"></i> Done</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ CLEAR LOCAL DATA CONFIRMATION MODAL ============ -->
+<div class="st-modal-overlay" id="stClearDataModal">
+  <div class="st-modal">
+    <div class="st-modal-header">
+      <h3><i class="fa-solid fa-triangle-exclamation" style="color:var(--warning);margin-right:8px;"></i> Clear Local Data</h3>
+      <button class="st-modal-close" data-close-modal="clearData" aria-label="Close modal"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="st-danger-modal-body">
+      <div class="st-danger-modal-icon" style="background:var(--warning-bg);color:var(--warning);"><i class="fa-solid fa-broom"></i></div>
+      <h3>Clear Local Data Preferences?</h3>
+      <p>This will remove all locally stored HealthBridge AI settings, customized preferences, and stored profile information from your browser. Unrelated browser storage will not be modified.</p>
+      <div class="st-danger-actions">
+        <button class="st-danger-btn st-btn-delete" id="stConfirmClearData"><i class="fa-solid fa-trash-can"></i> Clear Data</button>
+        <button class="st-danger-btn st-btn-cancel" data-close-modal="clearData">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ CHANGE PASSWORD MODAL ============ -->
+<div class="st-modal-overlay" id="stPasswordModal">
+  <div class="st-modal">
+    <div class="st-modal-header">
+      <h3><i class="fa-solid fa-key" style="color:var(--brand-teal);margin-right:8px;"></i> Change Password</h3>
+      <button class="st-modal-close" data-close-modal="password" aria-label="Close modal"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="st-danger-modal-body" style="padding:24px;">
+      <div class="st-danger-modal-icon" style="background:var(--info-bg);color:var(--info);"><i class="fa-solid fa-shield-halved"></i></div>
+      <h3>Authentication Notice</h3>
+      <p>Authentication is not connected in this frontend prototype. Account password management will be fully operational when server connection is enabled.</p>
+      <div class="st-danger-actions" style="margin-top:16px;">
+        <button class="st-modal-save" style="width:100%;justify-content:center;" data-close-modal="password">Understood</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SIGN OUT MODAL ============ -->
+<div class="st-modal-overlay" id="stSignOutModal">
+  <div class="st-modal">
+    <div class="st-modal-header">
+      <h3><i class="fa-solid fa-right-from-bracket" style="color:var(--danger);margin-right:8px;"></i> Sign Out</h3>
+      <button class="st-modal-close" data-close-modal="signOut" aria-label="Close modal"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="st-danger-modal-body" style="padding:24px;">
+      <div class="st-danger-modal-icon" style="background:var(--danger-bg);color:var(--danger);"><i class="fa-solid fa-user-slash"></i></div>
+      <h3>Sign Out Prototype Notice</h3>
+      <p>This is a frontend prototype. You are viewing local preview data. Signing out from a active server session will be enabled once authentication services are live.</p>
+      <div class="st-danger-actions" style="margin-top:16px;">
+        <button class="st-modal-save" style="width:100%;justify-content:center;" data-close-modal="signOut">Got It</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ DANGER ZONE MODAL ============ -->
+<div class="st-modal-overlay" id="stDangerModal">
+  <div class="st-modal">
+    <div class="st-modal-header">
+      <h3><i class="fa-solid fa-triangle-exclamation" style="color:var(--danger);margin-right:8px;"></i> Danger Zone</h3>
+      <button class="st-modal-close" data-close-modal="danger" aria-label="Close modal"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="st-danger-modal-body">
+      <div class="st-danger-modal-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+      <h3>Account & Preference Controls</h3>
+      <p style="margin-bottom:12px;">Resetting settings will restore default preferences. Account deletion will be available when account services are connected.</p>
+      <div class="st-danger-actions">
+        <button class="st-danger-btn st-btn-export" id="stDangerExportBtn"><i class="fa-solid fa-download"></i> Export Health Settings Data</button>
+        <button class="st-danger-btn st-btn-delete" id="stDangerResetBtn"><i class="fa-solid fa-arrow-rotate-left"></i> Reset All Settings</button>
+        <button class="st-danger-btn st-btn-cancel" data-close-modal="danger">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ HELP & INFO MODAL ============ -->
+<div class="st-modal-overlay" id="stInfoModal">
+  <div class="st-modal">
+    <div class="st-modal-header">
+      <h3 id="stInfoModalTitle"><i class="fa-solid fa-circle-info" style="color:var(--brand-teal);margin-right:8px;"></i> Information</h3>
+      <button class="st-modal-close" data-close-modal="info" aria-label="Close modal"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="st-modal-body" id="stInfoModalBody">
+      <!-- Dynamic content -->
+    </div>
+    <div class="st-modal-actions">
+      <button class="st-modal-save" data-close-modal="info">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="st-toast" id="stToast"></div>
+
+<script src="script.js"></script>
+<script src="settings.js"></script>
+<script>
+(function() {
+  function forceReveal() {
+    document.body.classList.remove('is-loading');
+    document.querySelectorAll('.skeleton-block').forEach(function(e) {
+      e.style.display = 'none';
+      e.hidden = true;
+    });
+    document.querySelectorAll('.real-content').forEach(function(e) {
+      e.style.display = 'block';
+      e.hidden = false;
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', forceReveal);
+  } else {
+    forceReveal();
+  }
+  setTimeout(forceReveal, 100);
+  setTimeout(forceReveal, 500);
+})();
+</script>
+
+</body>
+</html>

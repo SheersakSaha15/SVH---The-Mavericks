@@ -1,0 +1,507 @@
+/* =========================================================
+   disease-awareness.css
+   Fully isolated stylesheet for disease-awareness.html.
+   Every new selector is prefixed `da-`. Structural look
+   (card background, border, radius, shadow, spacing rhythm,
+   hover lift) comes from the existing .panel/.card/.reveal
+   classes already applied alongside these in the HTML — this
+   file only adds what's specific to this page, reuses the
+   existing CSS custom properties from style.css throughout
+   (so dark mode is inherited automatically), and does not
+   modify style.css in any way.
+   ========================================================= */
+
+/* ---------- Accent color system (scoped to this page only) ----------
+   Each da-c-* class sets two custom properties consumed by the
+   card icon / badge rules below. Reuses existing tokens where
+   they exist (info/success/warning/danger) and reuses the exact
+   one-off hex accents already established elsewhere in the
+   project (sc-ic-purple/pink/indigo/orange, eh-ic-purple) for
+   visual consistency — no new colors invented. */
+.da-c-green  { --da-accent: var(--success);           --da-accent-bg: var(--success-bg); }
+.da-c-blue   { --da-accent: var(--info);               --da-accent-bg: var(--info-bg); }
+.da-c-amber  { --da-accent: var(--warning);            --da-accent-bg: var(--warning-bg); }
+.da-c-red    { --da-accent: var(--danger);             --da-accent-bg: var(--danger-bg); }
+.da-c-purple { --da-accent: #8b5cf6;                   --da-accent-bg: rgba(139, 92, 246, 0.12); }
+.da-c-pink   { --da-accent: #ec4899;                   --da-accent-bg: rgba(236, 72, 153, 0.12); }
+.da-c-indigo { --da-accent: #6366f1;                   --da-accent-bg: rgba(99, 102, 241, 0.12); }
+.da-c-orange { --da-accent: #f97316;                   --da-accent-bg: rgba(249, 115, 22, 0.12); }
+.da-c-teal   { --da-accent: var(--brand-teal);         --da-accent-bg: var(--success-bg); }
+
+/* ---------- Page header ---------- */
+.da-page-header p { color: var(--text-secondary); }
+
+/* ---------- Search bar ---------- */
+.da-search-bar {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 13px 18px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 20px;
+  transition: border-color var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+}
+.da-search-bar:focus-within { border-color: var(--brand-teal-light); box-shadow: var(--shadow-focus); }
+.da-search-bar i { color: var(--text-muted); font-size: 14px; flex-shrink: 0; }
+.da-search-bar input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 13.5px;
+  color: var(--text-primary);
+}
+.da-search-bar input:focus { outline: none; }
+.da-search-bar input::placeholder { color: var(--text-muted); }
+.da-search-clear {
+  color: var(--text-muted);
+  font-size: 13px;
+  padding: 4px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+.da-search-clear:hover { background: var(--surface-alt); color: var(--text-primary); }
+.da-search-clear:focus-visible { outline: none; box-shadow: var(--shadow-focus); }
+
+/* ---------- Featured Health Topic ---------- */
+.da-featured {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--r-lg);
+  border: 1px solid var(--border);
+  background: linear-gradient(135deg, var(--success-bg) 0%, var(--surface) 78%);
+  padding: 26px 28px;
+  margin-bottom: 22px;
+}
+[data-theme="dark"] .da-featured { background: linear-gradient(135deg, var(--success-bg) 0%, var(--surface) 85%); }
+
+.da-featured-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--brand-teal-dark);
+  margin-bottom: 10px;
+}
+[data-theme="dark"] .da-featured-eyebrow { color: #5eead4; }
+
+.da-featured-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr 1fr 1fr;
+  gap: 26px;
+  position: relative;
+}
+
+.da-featured-main h3 { font-size: 24px; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; }
+.da-featured-main p { font-size: 13px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 18px; max-width: 320px; }
+
+.da-featured-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 22px;
+  border-radius: var(--r-full);
+  background: var(--brand-teal);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  border: none;
+  transition: background var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+}
+.da-featured-cta:hover { background: var(--brand-teal-dark); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+.da-featured-cta:active { transform: translateY(0) scale(0.97); }
+.da-featured-cta:focus-visible { outline: none; box-shadow: var(--shadow-focus); }
+
+.da-featured-col h4 {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+.da-featured-col.da-warning-col h4 { color: var(--danger); }
+
+.da-featured-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+.da-featured-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  font-size: 12.5px;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+.da-featured-list li i { font-size: 11px; margin-top: 2px; flex-shrink: 0; }
+
+.da-symptom-list li::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+.da-prevention-list li i { color: var(--success); }
+.da-warning-col-list li { color: var(--danger); }
+.da-warning-col-list li i { color: var(--danger); }
+
+.da-featured-visual {
+  position: absolute;
+  top: 10px;
+  right: 16px;
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 38px;
+  color: var(--brand-teal-dark);
+}
+[data-theme="dark"] .da-featured-visual { background: rgba(255, 255, 255, 0.06); color: #5eead4; }
+
+/* ---------- Category filters ---------- */
+.da-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-bottom: 22px;
+}
+.da-filter-chip {
+  padding: 9px 18px;
+  border-radius: var(--r-full);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+}
+.da-filter-chip:hover { border-color: var(--brand-teal-light); transform: translateY(-1px); }
+.da-filter-chip.da-is-active { background: var(--brand-teal); border-color: var(--brand-teal); color: #fff; }
+.da-filter-chip:focus-visible { outline: none; box-shadow: var(--shadow-focus); }
+
+/* ---------- Disease Library header ---------- */
+.da-library-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.da-library-head h3 { font-size: 17px; font-weight: 700; color: var(--text-primary); }
+
+.da-sort-select {
+  padding: 9px 14px;
+  border-radius: var(--r-full);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+}
+.da-sort-select:focus-visible { outline: none; box-shadow: var(--shadow-focus); }
+
+/* ---------- Disease grid & cards ---------- */
+.da-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.da-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  padding: 20px 18px;
+  border-radius: var(--r-lg);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+}
+.da-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--brand-teal-light); }
+.da-card:focus-visible { outline: none; box-shadow: var(--shadow-focus); }
+
+.da-card-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  margin-bottom: 14px;
+  background: var(--da-accent-bg, var(--info-bg));
+  color: var(--da-accent, var(--info));
+}
+
+.da-card h4 { font-size: 15px; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; }
+
+.da-card-category {
+  display: inline-block;
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  padding: 3px 10px;
+  border-radius: var(--r-full);
+  margin-bottom: 10px;
+  background: var(--da-accent-bg, var(--info-bg));
+  color: var(--da-accent, var(--info));
+}
+
+.da-card p { font-size: 12.5px; color: var(--text-secondary); line-height: 1.55; margin-bottom: 14px; }
+
+.da-card-link {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--brand-teal-dark);
+}
+[data-theme="dark"] .da-card-link { color: #5eead4; }
+.da-card-link i { font-size: 10px; transition: transform var(--dur-fast) var(--ease); }
+.da-card:hover .da-card-link i { transform: translateX(3px); }
+
+/* ---------- Empty search state ---------- */
+.da-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  padding: 48px 20px;
+  color: var(--text-muted);
+}
+.da-empty i { font-size: 26px; margin-bottom: 4px; }
+.da-empty h4 { font-size: 15px; font-weight: 700; color: var(--text-primary); }
+.da-empty p { font-size: 13px; color: var(--text-secondary); }
+
+/* ---------- Know the Warning Signs ---------- */
+.da-warning-section {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  border-radius: var(--r-lg);
+  border: 1px solid var(--border);
+  background: var(--warning-bg);
+  padding: 22px 26px;
+  margin-bottom: 18px;
+}
+/* style.css doesn't redefine --warning-bg for [data-theme="dark"] (only
+   danger/success/info are overridden there), so without this scoped
+   fallback the section would keep its light cream background and clash
+   with the rest of the dark UI. This override lives entirely in this
+   file and touches nothing shared. */
+[data-theme="dark"] .da-warning-section { background: rgba(245, 158, 11, 0.08); }
+.da-warning-lead { display: flex; align-items: flex-start; gap: 16px; flex: 1 1 280px; }
+.da-warning-badge {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgba(245, 158, 11, 0.18);
+  color: var(--warning);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 19px;
+  flex-shrink: 0;
+}
+.da-warning-lead h3 { font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
+.da-warning-lead p { font-size: 12.5px; color: var(--text-secondary); line-height: 1.55; max-width: 320px; }
+
+.da-warning-signs {
+  display: flex;
+  gap: 22px;
+  flex: 1 1 380px;
+  flex-wrap: wrap;
+}
+.da-warning-item { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; width: 84px; }
+.da-warning-item-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  box-shadow: var(--shadow-sm);
+}
+.da-warning-item span { font-size: 11.5px; font-weight: 600; color: var(--text-primary); line-height: 1.35; }
+
+/* ---------- Disclaimer strip ---------- */
+.da-disclaimer {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 13px 18px;
+  border-radius: var(--r-md);
+  background: var(--info-bg);
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1.55;
+}
+.da-disclaimer i { color: var(--info); flex-shrink: 0; margin-top: 1px; }
+
+/* ---------- Modal ---------- */
+.da-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-med) var(--ease);
+}
+.da-modal-overlay.da-is-open { opacity: 1; pointer-events: auto; }
+
+.da-modal {
+  width: 100%;
+  max-width: 560px;
+  max-height: 85vh;
+  overflow-y: auto;
+  background: var(--surface);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(14px) scale(0.98);
+  transition: transform var(--dur-med) var(--ease);
+}
+.da-modal-overlay.da-is-open .da-modal { transform: translateY(0) scale(1); }
+
+.da-modal-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 22px 24px 18px;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: var(--surface);
+}
+.da-modal-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 19px;
+  flex-shrink: 0;
+  background: var(--da-accent-bg, var(--info-bg));
+  color: var(--da-accent, var(--info));
+}
+.da-modal-title-wrap { flex: 1; min-width: 0; }
+.da-modal-title-wrap h3 { font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 5px; }
+.da-modal-close {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 14px;
+  flex-shrink: 0;
+  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+.da-modal-close:hover { background: var(--surface-alt); color: var(--text-primary); }
+.da-modal-close:focus-visible { outline: none; box-shadow: var(--shadow-focus); }
+
+.da-modal-body { padding: 20px 24px 24px; display: flex; flex-direction: column; gap: 18px; }
+.da-modal-section h4 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+.da-modal-section h4 i { color: var(--brand-teal); font-size: 12px; }
+.da-modal-section.da-modal-warning h4 i { color: var(--danger); }
+.da-modal-section p { font-size: 13px; color: var(--text-secondary); line-height: 1.65; }
+.da-modal-section ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.da-modal-section li {
+  font-size: 13px;
+  color: var(--text-secondary);
+  padding-left: 17px;
+  position: relative;
+  line-height: 1.55;
+}
+.da-modal-section li::before {
+  content: '';
+  position: absolute;
+  left: 3px;
+  top: 8px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--text-muted);
+}
+.da-modal-warning li { color: var(--text-primary); }
+.da-modal-warning li::before { background: var(--danger); }
+
+.da-modal-disclaimer {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  font-size: 11.5px;
+  color: var(--text-muted);
+  background: var(--surface-alt);
+  padding: 12px 14px;
+  border-radius: var(--r-sm);
+  line-height: 1.55;
+}
+.da-modal-disclaimer i { color: var(--info); margin-top: 1px; flex-shrink: 0; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1180px) {
+  .da-featured-grid { grid-template-columns: 1fr 1fr; row-gap: 22px; }
+  .da-featured-main { grid-column: 1 / -1; }
+  .da-featured-visual { position: static; margin-bottom: 6px; }
+}
+
+@media (max-width: 900px) {
+  .da-featured-grid { grid-template-columns: 1fr; }
+  .da-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+  .da-warning-section { flex-direction: column; align-items: stretch; }
+  .da-warning-signs { justify-content: space-between; }
+}
+
+@media (max-width: 640px) {
+  .da-grid { grid-template-columns: repeat(2, 1fr); }
+  .da-library-head { flex-direction: column; align-items: flex-start; }
+  .da-warning-signs { gap: 14px; }
+  .da-warning-item { width: 72px; }
+  .da-modal { max-height: 90vh; }
+  .da-modal-head { flex-wrap: wrap; }
+}
+
+@media (max-width: 420px) {
+  .da-grid { grid-template-columns: 1fr; }
+  .da-featured { padding: 20px 18px; }
+  .da-warning-signs { gap: 12px; }
+  .da-warning-item { width: 64px; }
+  .da-warning-item span { font-size: 10.5px; }
+}

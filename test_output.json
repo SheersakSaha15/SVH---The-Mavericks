@@ -1,0 +1,17 @@
+{
+  "success": true,
+  "session_id": "test_hi",
+  "message": "नमस्ते! 🙏 मैं HealthBridge AI हूँ, आपका जन स्वास्थ्य सहायक। आज मैं आपकी क्या सहायता कर सकता हूँ?\n\n💡 *सुझाए गए प्रश्न (Suggested Questions)*:\n➔ 💉 *जन्म के समय कौन से टीके दिए जाते हैं?*\n➔ 🦟 *डेंगू बुखार के क्या लक्षण हैं?*\n➔ 🏥 *नजदीकी अस्पताल और स्वास्थ्य केंद्र खोजें*\n➔ 💧 *ओआरएस (ORS) का उपयोग कैसे करें?*",
+  "language": "hi",
+  "intent": "greeting",
+  "sources": [
+    {
+      "source": "healthbridge_assistant",
+      "chunk_id": null
+    }
+  ],
+  "safety": {
+    "level": "normal",
+    "requires_human_attention": false
+  }
+}
